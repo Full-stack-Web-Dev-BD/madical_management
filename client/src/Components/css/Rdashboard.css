@@ -1,0 +1,19 @@
+.statSection
+{
+    padding-left:220px;
+
+    
+}
+.stats{
+    display:block;
+    background-color: rgb(235, 234, 233);
+    height:100%;
+  
+    width:100%
+
+}
+body{
+    background-color: rgb(245, 244, 243);
+    margin:0;
+    padding:0
+}

@@ -1,0 +1,54 @@
+.mainDashboard
+{ 
+ 
+    height:100%;
+    width:200px;
+    position:fixed;
+    
+    padding-top:0px;
+   
+}
+.headDashboard
+{
+    color:white;
+  
+    padding: 20px;
+    font-size: 20px;
+}
+.ulDashboard
+{
+    padding-top: 40px;
+    list-style: none;
+    
+}
+
+.ulDashboard li
+{
+    padding-top: 22px;
+    float: left;
+
+}
+li #word
+{
+    font-size: 18px;
+    color:white;
+    padding: 26px;
+    text-decoration: none;
+}
+.sad{
+    font-size: 18px;
+    color:white;
+    padding: 26px;
+    text-decoration: none;
+}
+li #word span
+{
+    font-size: 22px;
+    color:white;
+    
+}
+*
+{
+    margin: 0;
+    padding: 0;
+}
