@@ -11,7 +11,7 @@ const Staffinfo = (props) => {
 
 <select id="inputState" class="form-control" name="department" onChange={(e)=>props.updateInfo(e)}>
   <option disabled selected>Choose Department</option>
-  <option>MicroBiology - Bacteriology</option>
+  {/* <option>MicroBiology - Bacteriology</option>
   <option >MicroBiology - Serology</option>
   <option>MicroBiology - Tuberculosis</option>
   <option >Haematology</option>
@@ -21,7 +21,8 @@ const Staffinfo = (props) => {
   <option >Food and Water Analysis</option>
   <option>MicroBiology Laboratory and test</option>
   <option>Parasitology</option>
-  <option>MDR /TB</option>
+  <option>MDR /TB</option> */}
+  <option>Lab</option>
  
 </select>
 </div>
@@ -32,9 +33,9 @@ const Staffinfo = (props) => {
   <option disabled selected>Choose Staff Type</option>
   <option>Receptionist</option>
   <option >Doctor</option>
-  <option>Nurse</option>
   <option >Lab Technician</option>
-  <option>Diagnostic and Imaging</option>
+  {/* <option>Nurse</option> */}
+  {/* <option>Diagnostic and Imaging</option> */}
  
 </select>
 </div>

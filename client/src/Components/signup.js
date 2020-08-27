@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,11 +14,11 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios'
 import Login from './login'
 import {
-    BrowserRouter as Router,
-    Route,
-    Link,
-    Switch
-  } from "react-router-dom";
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch
+} from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -40,136 +40,124 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Signup(props) {
+  const [validationError, setValidationError] = useState({})
   const classes = useStyles();
-  const [account,setAccount] = useState({
-    name:"",
-    email:"",
-    password:"",
-    type:'admin'
-})
-const updateData=(e)=>
-{
+  const [account, setAccount] = useState({
+    name: "",
+    email: "",
+    password: ""
+  })
+  const updateData = (e) => {
     e.preventDefault();
-    console.log(e.currentTarget.value)
-    const updateAccount ={...account}
+    const updateAccount = { ...account }
     updateAccount[e.currentTarget.name] = e.currentTarget.value;
     setAccount(updateAccount)
-    console.log(account)
-}
-const signingup=(e)=>
-{
+  }
+  const signingup = (e) => {
     e.preventDefault()
-    console.log("Hello Signing up")
     axios
-    .post("/api/user",{
-        name:account.name,
-        email:account.email,
-        password:account.password,
-        type:'admin'
-    })
-    .then(res=>
-        {
-            console.log(res.data)
-            if(res)
-            {
-            localStorage.setItem('userStore',res.data)
-            }
-            props.history.push('/Dashboard');
-        })
-    .catch(error=>
-        {
-            console.log(error)
-        })
-}
-    useEffect(() => {
-        const x =localStorage.getItem('userStore')
-        console.log(x)
-        if(x == null)
-        {        
-        }
-        else
-        {
-         // localStorage.removeItem('userStore');
-          props.history.push('/Dashboard');
-        }
-    }, [])
+      .post("/admin-register", {
+        name: account.name,
+        email: account.email,
+        password: account.password
+      })
+      .then(res => {
+        props.history.push('/');
+      })
+      .catch(error => {
+        setValidationError(error.response.data)
+      })
+  }
   return (
     <Router>
-    <Container component="main" maxWidth="xs">
-    
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Signup
+      <Container component="main" maxWidth="xs">
+
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Signup
         </Typography>
-        <form className={classes.form} onSubmit={signingup}>
-        <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="name"
-            label="Name"
-            name="name"
-            autoComplete="name"
-            autoFocus
-            value={account.name} 
-            onChange={(e)=>updateData(e)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            value={account.email} 
-            onChange={(e)=>updateData(e)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={account.password} 
-            onChange={(e)=>updateData(e)}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign up
+          <form className={classes.form} onSubmit={signingup}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              error={validationError.name?true:false}
+              fullWidth
+              id="name"
+              label="Name"
+              name="name"
+              autoComplete="name"
+              autoFocus
+              value={account.name}
+              onChange={(e) => updateData(e)}
+            />
+            <TextField
+              variant="outlined"
+              error={validationError.email?true:false}
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              value={account.email}
+              onChange={(e) => updateData(e)}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              error={validationError.password?true:false}
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={account.password}
+              onChange={(e) => updateData(e)}
+            />
+            {
+              validationError.massage?
+              <p className="text-danger"> {validationError.massage} </p>
+              :''
+            }
+            {
+              validationError.email?
+              <p className="text-danger"> {validationError.email} </p>
+              :''
+            }
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign up
           </Button>
-          <Grid container>
-           
-            <Grid item>
-       
-              <a href="/"> {"Already have an Account? Signin"}</a>
-            
+            <Grid container>
+
+              <Grid item>
+
+                <a href="/"> {"Already have an Account? Signin"}</a>
+
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-      
-    </Container> 
-  
+          </form>
+        </div>
+
+      </Container>
+
     </Router>
   );
 }

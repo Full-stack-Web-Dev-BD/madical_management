@@ -113,16 +113,22 @@ const Workstatus = (props) => {
     <div class="form-group col-md-4">
     <select id="inputState" class="form-control" required name="employeeStatus" onChange={(e)=>props.updateInfo(e)}>
       <option disabled selected>Employee Status</option>
-      <option>Working</option>
-      <option >Un employeed</option>
+      {/* <option>Working</option>
+      <option >Un employeed</option> */}
+       <option>Civil</option>
+       <option>Ex-Combatant</option>
+       <option>National Service</option>
+       <option>College Service</option>
+       <option>Expatriate</option>
+
 
     </select>
     </div>
     <div class="form-group col-md-4">
     <select id="inputState" class="form-control" name="employeeType" required onChange={(e)=>props.updateInfo(e)}>
       <option disabled selected>Employee Type</option>
-      <option>Full time</option>
-      <option >Part time</option>
+      <option>Permanent</option>
+      <option >Contractual</option>
     </select>
     </div>
     </div>
