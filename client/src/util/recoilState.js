@@ -12,3 +12,16 @@ export const decodedToken=atom({
     key:'decodedToken',
     default:{}
 })
+export const doctorsState=atom({
+    key:'doctorsState',
+    default:[]
+})
+export const allPatientState=atom({
+    key:'allPatientState',
+    default:[]
+})
+
+export const allAppoinmentState=atom({
+    key:'allAppoinmentState',
+    default:[]
+})

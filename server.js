@@ -20,6 +20,7 @@ app.use(bodyParser.json())
 
 // use all route 
 app.use(require('./routes/adminRouter'))
+app.use(require('./routes/staffRouter'))
 
 
 app.listen(PORT,()=>{

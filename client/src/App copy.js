@@ -1,6 +1,14 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+
+
+
+import Form12 from './Components/Doctor/NHLForms/form12'
+import Form13 from './Components/Doctor/NHLForms/form13'
+import Form14 from './Components/Doctor/NHLForms/form14'
+import Form15 from './Components/Doctor/NHLForms/form15'
+
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from './Components/login.js'
 import Signup from './Components/signup'
@@ -9,14 +17,10 @@ import Sidebar from './Components/sidebar'
 import Patient from './Components/patient'
 import Dashboard from './Components/Dashboard'
 import Doctor from './Components/doctor'
-import BookAppointment from './Components/bookAppointment'
 import AddPatient from './Components/addPatient'
-import ViewPatient from './Components/ViewPatients'
 import Adashboard from './Components/Admin/Adashboard'
 import Astaff from './Components/Admin/AddStaff/Addstaff';
 import ViewAllDoctor from './Components/viewAllDoctor'
-import Payment from './Components/payment'
-import PaymentForm from './Components/paymentForm'
 import DDashboard from './Components/Doctor/dashboard'
 import DDepartments from './Components/Doctor/Departments'
 import Hform from './Components/Doctor/HForm/Hform'
@@ -50,18 +54,22 @@ import HCVViralview from './Components/Doctor/ViewResult/HCVViralview'
 import HBLViralview from './Components/Doctor/ViewResult/HBLViralview'
 import TBreport from './Components/LaboratoryTeam/TBReport/TBreport'
 import Tbreport from './Components/Doctor/ViewResult/Tbreport'
-import Form12 from './Components/Doctor/NHLForms/form12'
-import Form13 from './Components/Doctor/NHLForms/form13'
-import Form14 from './Components/Doctor/NHLForms/form14'
-import Form15 from './Components/Doctor/NHLForms/form15'
 import Culture from './Components/LaboratoryTeam/culture/Culture'
+
+
+
+
+import ViewPatient from './Components/ViewPatients'
+import BookAppointment from './Components/bookAppointment'
+import Payment from './Components/payment'
+import PaymentForm from './Components/paymentForm'
+
 function App() {
   return (
     <div className="App">
      <Router >
       
     <Switch>
-      <Route path="/" exact component={Login}/>
       <Route path="/HIVViral"  component={HIVViral}/>
       <Route path="/form12"  component={Form12}/>
       <Route path="/form13"  component={Form13}/>
@@ -98,26 +106,32 @@ function App() {
       <Route path="/Page2" component={MPage2}/>
       <Route path="/Page3" component={MPage3}/>
       <Route path="/Pform" component={PForm} />
-      <Route path="/paymentForm" component={PaymentForm}/>
       <Route path="/Departments" component={DDepartments}/>
       <Route path="/DoctorDashboard" component={DDashboard}/>
-      <Route path="/payment" component = {Payment}/>
       <Route path="/viewAllDoctor" component={ViewAllDoctor}/>
-      <Route path="/Signup" component={Signup}/>
       <Route path="/Appointment" component={Appointment}/>
       <Route path="/sidebar" component={Sidebar} />
-      <Route path="/patient" component={Patient}/>
-      <Route path="/doctor" component={Doctor} />
-      <Route path="/bookAppointment" component={BookAppointment} />
-      <Route path="/addPatient" component={AddPatient} />
-      <Route path="/viewPatients" component={ViewPatient} />
+      {/* <Route path="/patient" component={Patient}/> */}
+      {/* <Route path="/doctor" component={Doctor} /> */}
+{/* login sign up  */}
+<Route path="/Signup" component={Signup}/>
+<Route path="/" exact component={Login}/>
+
+
 
       
-      <Route path="/Dashboard" component={Dashboard} />
-      
-
+{/* admin route */}
       <Route path='/AdminDashboard' component={Adashboard}/>
       <Route path="/AddStaff" component={Astaff}/>
+
+{/* receptionist route */}
+      <Route path="/Dashboard" component={Dashboard} />
+      <Route path="/addPatient" component={AddPatient} />
+      <Route path="/viewPatients" component={ViewPatient} />
+      <Route path="/bookAppointment" component={BookAppointment} />
+      <Route path="/payment" component = {Payment}/>
+      <Route path="/paymentForm" component={PaymentForm}/>
+
       </Switch>
       </Router>
     </div>

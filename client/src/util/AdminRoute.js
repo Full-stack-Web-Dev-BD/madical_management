@@ -23,6 +23,7 @@ const AdminRoute = ({ component: Component, ...rest }) => {
         })
         .catch(err=>{
             window.localStorage.removeItem('userStore')
+            window.location.href='/'
         })
     },[])
     return (

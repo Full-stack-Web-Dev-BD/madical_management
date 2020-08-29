@@ -35,11 +35,13 @@ const PatientBasicInfo = (props) => {
 <option disabled selected>BloodGroup</option>
   <option>A+</option>
   <option>A-</option>
-  <option >A+</option>
   <option>B+</option>
   <option >B-</option>
   <option>O+</option>
   <option>O-</option>
+  <option>AB+</option>
+  <option>AB-</option>
+  <option>Unknown</option>
 </select>
 </div>
 

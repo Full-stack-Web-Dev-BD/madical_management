@@ -22,26 +22,23 @@ const Sidebar = (props) => {
         }
     }, [])
     function logout(e) {
+        console.log('log out ')
         e.preventDefault();
         localStorage.removeItem('userStore');
-        props.history.push('/');
+        window.location.href='/'
     }
     return (
-
         <div class="mainDashboard " style={{ backgroundImage: `url(${Sideback})` }}>
             <div style={{ backgroundColor: "white", height: "90px", borderBottom: "1px solid white" }}>
                 <img src={SideImg} style={{ height: '90px', width: '90%' }} />
             </div>
             <ul class="ulDashboard ">
-                <li><Link to="/Dashboard" id="word"> Dashboard</Link></li>
-
-
-                <li><Link to="/Appointment" id="word"> Appointments</Link></li>
-
-                <li><a href="" id="word" onClick={()=>logout}> Logout</a></li>
-
+                <li><Link to="/ReceptionistDashboard" id="word"> Dashboard</Link></li>
+                <li><Link to="/viewAppoinment" id="word"> Appointments</Link></li>
+                <li><Link to="/view-invoice" id="word"> Payment</Link></li>
+                <li><Link to="/create-invoice" id="word"> Create Invoice</Link></li>
+                <li><a style={{cursor:"pointer"}} id="word" onClick={(e)=>{logout(e)}}> Sign Out</a></li>
             </ul>
-
         </div>
     );
 }

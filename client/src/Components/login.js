@@ -54,6 +54,24 @@ export default function Login(props) {
     email: "",
     password: ""
   })
+  useEffect(() => {
+    let token = window.localStorage.getItem('userStore')
+    if (token) {
+      const decoded = jwt_decode(token);
+      if (decoded.type == "Admin" || decoded.type == 'admin') {
+        props.history.push('/AdminDashboard')
+      }
+      else if (decoded.type == "Receptionist") {
+        props.history.push('/ReceptionistDashboard')
+      }
+      else if (decoded.type == "Doctor") {
+        props.history.push('/DoctorDashboard')
+      }
+      else if (decoded.type == "Lab Technician") {
+        props.history.push('/LabManagement')
+      }
+    }
+  }, [])
   const updateData = (e) => {
     e.preventDefault();
     const updateAccount = { ...account }
@@ -71,7 +89,7 @@ export default function Login(props) {
         const decoded = jwt_decode(res.data.token);
         localStorage.setItem('userStore', res.data.token);
 
-         if (decoded.type == "Admin"||decoded.type=='admin') {
+        if (decoded.type == "Admin" || decoded.type == 'admin') {
           props.history.push('/AdminDashboard')
         }
         else if (decoded.type == "Receptionist") {
@@ -85,7 +103,7 @@ export default function Login(props) {
         }
       })
       .catch(error => {
-        if(error.response){
+        if (error.response) {
           setValidationError(error.response.data)
         }
       })
@@ -110,7 +128,7 @@ export default function Login(props) {
               required
               fullWidth
               id="email"
-              error={validationError.email?true:false}
+              error={validationError.email ? true : false}
               label="Email Address of ID"
               name="email"
               autoComplete="email"
@@ -126,7 +144,7 @@ export default function Login(props) {
               name="password"
               label="Password"
               type="password"
-              error={validationError.password?true:false}
+              error={validationError.password ? true : false}
               id="password"
               autoComplete="current-password"
               value={account.passwor}
@@ -135,14 +153,14 @@ export default function Login(props) {
 
 
             {
-              validationError.massage?
-              <p className="text-danger">  {validationError.massage} </p>
-              :''
+              validationError.massage ?
+                <p className="text-danger">  {validationError.massage} </p>
+                : ''
             }
-            
-            
-            
-            
+
+
+
+
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"

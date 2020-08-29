@@ -1,116 +1,118 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import Sidebar from './sidebar'
-import { BrowserRouter, Link,withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import {store,persistor} from '../store/index'
-import {bookingAppointment} from '../action/bookAppointAction'
 const BookAppointment = (props) => {
-  
- 
-  const [appointData,setAppointData] = useState({
-    UHID:"",
-    basicInformation:"",
-    SID:"",
-    appointmentDate:"",
-    priority:"",
-    time:"",
-    DName:"",
-    Department:""
-    
+
+  const [isFindPatient, setIsFindPatient] = useState(false)
+  const [isAddedSuccess, setIsAddedSuccess] = useState(false)
+  const [appointData, setAppointData] = useState({
+    UHID: "",
+    patientInformation: [],
+    SID: "",
+    appointmentDate: "",
+    priority: "",
+    time: ""
   })
 
-  const update =(e)=>
-  {
-   
-    const copyData = {... appointData}
+  const update = (e) => {
+    const copyData = { ...appointData }
     copyData[e.currentTarget.name] = e.currentTarget.value
     setAppointData(copyData)
-
-    console.log(appointData)
   }
-  
-  const getPatientData = (e)=>{
+
+  const getPatientData = (e) => {
     e.preventDefault()
-    console.log(store.getState())
-    if(!appointData.UHID)
-    {
-     return
+    if (!appointData.UHID) {
+      return
     }
-    else{
-   
-      axios.get(`http://localhost:4001/api/patient/${appointData.UHID}`)
-      .then(res=>{
-        const data = {...appointData}
-              console.log(res.data.basicInformation)
-              data['basicInformation'] = res.data.basicInformation
-              setAppointData(data)
-      })
-      .catch(error=>console.log(error))
+    else {
+      axios.get(`/get-single-patient/${appointData.UHID}`)
+        .then(res => {
+          setIsFindPatient(true)
+          console.log(res.data[0])
+          const data = { ...appointData }
+          data['patientInformation'] = res.data[0]
+          setAppointData(data)
+        })
+        .catch(err => {
+          if (err.response) {
+            console.log(err.response.data)
+          }
+          console.log(err)
+        })
     }
 
   }
-  const Booking=(e)=>
-  {
+  const Booking = (e) => {
     e.preventDefault()
-    console.log(appointData.SID)
-     axios.get(`http://localhost:4001/api/Staff/doc/${appointData.SID}`)
-    .then(({ data }) => {
-      const appointdata = {...appointData}
-      console.log(data.basicInformation)
-      appointdata['DName'] = data.basicInformation.name
-      appointdata['Department'] = data.staffInformation.department
-      console.log(appointdata['DName'])
-      const storeData = {...appointData,DName: data.basicInformation.name,Department:data.staffInformation.department}
-      console.log(storeData)
-      store.dispatch(bookingAppointment(storeData))
-      props.history.push({
-        pathname: '/payment',
-        state: {
-          id: 7,
-          color: 'green'
-        }
+    axios.post(`/book-appoint`, appointData)
+      .then(res => {
+        setIsAddedSuccess(true)
+        setTimeout(() => {
+          setIsAddedSuccess(false)
+          setIsFindPatient(false)
+          window.location.href = '/ReceptionistDashboard'
+        }, 2000);
       })
-  });
-       
-}
-    return (  
-        <div>
-              <Sidebar/>
-            <div style={{marginLeft:'220px'}}>
-            <div style={{padding:'20px'}}>
-            <form style={{padding:"50px",backgroundColor:'white'}} onSubmit={Booking}>
-            <h5 style={{float:'left',marginBottom:'20px'}}>Book Appointment</h5>
-                <div class="form-row" style={{clear:'both'}}>
-              <div class="form-group col-md-4">
-              <input type="text" class="form-control" onChange={update} name="UHID" required id="inputEmail4" placeholder="UHID"/>
+      .catch(err => {
+        console.log(err)
+      })
+  }
+  return (
+    <div>
+      <Sidebar />
+      <div style={{ marginLeft: '220px' }}>
+        <div style={{ padding: '20px' }}>
+          {
+            isAddedSuccess ?
+              <h1 className="p-5 text-center text-success"> Appointment Added Success !!! </h1> :
+              <form style={{ padding: "50px", backgroundColor: 'white' }} onSubmit={Booking}>
+                <h2 style={{ float: 'left', marginBottom: '20px' }}>Book Appointment</h2>
+                <div class="form-row" style={{ clear: 'both' }}>
+                  {
+                    appointData.patientInformation.basic?
+                    
+                  <div class="form-group col-md-12">
+                    <h4 className="mr-2 text-success d-block">Founded Patient : <b style={{textTransform:'capitalize'}}> {appointData.patientInformation.basic.name} </b></h4>
+                  </div>:''
+                  }
+                  <div class="form-group col-md-4">
+                    <input type="text" class="form-control" onChange={update} name="UHID" required id="inputEmail4" placeholder="Find Patient by UHID" />
+                  </div>
+                  <div class="form-group col-md-4">
+                    <input type="button" onClick={getPatientData} class="btn btn-primary" style={{ float: 'left' }} required id="inputPassword4" value="Get Patient" />
+                  </div>
+                  <div class="form-group col-md-4">
+                    <input type="text" class="form-control" onChange={update} name="SID" required id="inputPassword4" placeholder="Staff ID" />
+                  </div></div>
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <input type="date" class="form-control" onChange={update} name="appointmentDate" placeholder="Appointment Date" required id="inputEmail4" />
+                  </div>
+                  <div class="form-group col-md-4">
+                    <select id="inputState" class="form-control" onChange={update} name="priority" required >
+                      <option disabled selected>Choose Priority</option>
+                      <option>High</option>
+                      <option>low</option>
+                    </select></div>
+                  <div class="form-group col-md-4">
+                    <input type="time" class="form-control" onChange={update} name="time" id="inputAddress" required placeholder="Time" />
+                  </div>
                 </div>
-            <div class="form-group col-md-4">
-            <input type="button" onClick={getPatientData} class="btn btn-primary" style={{float:'left'}} required id="inputPassword4" value="Get Patient" />
+                <div>
+                  {
+                    isFindPatient ?
+                      <button type="submit" style={{ float: "right" }} className="btn btn-primary">Book Appointment</button> :
+                      <button type="submit" style={{ float: "right" }} className="btn btn-default text-warning" >Find a Patient to Create Appointment</button>
+                  }
                 </div>
-            <div class="form-group col-md-4">
-            <input type="text" class="form-control" onChange={update} name="SID" required id="inputPassword4" placeholder="Staff ID"/>
-            </div></div>
-
-        <div class="form-row">
-          <div class="form-group col-md-4">
-          <input type="date" class="form-control" onChange={update} name="appointmentDate" placeholder="Appointment Date"  required id="inputEmail4" />    
-       </div>
-      <div class="form-group col-md-4">
-      <select id="inputState" class="form-control" onChange={update} name="priority" required >
-      <option disabled selected>Choose Priority</option>
-      <option>High</option>
-      <option>low</option>
-      </select></div>
-      <div class="form-group col-md-4">
-    <input type="time"  class="form-control" onChange={update} name="time" id="inputAddress" required placeholder="Time"/>
-  </div>
-  </div>
-
-  <button type="submit" style={{float:"right"}} class="btn btn-primary">Book Appointment</button>
-</form></div>
+              </form>
+          }
         </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 }
- 
+
 export default withRouter(BookAppointment)

@@ -19,7 +19,6 @@ const Doctor  = (props) => {
                 </div>
                 <div class="col-8">
                     Doctor
-                    
                 </div>
             </div>
         </div>

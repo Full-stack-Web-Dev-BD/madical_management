@@ -50,27 +50,28 @@ module.exports = {
                     staffModel.find({ ID: req.body.email })
                         .then(staff => {
                             if (staff.length === 0) {
-                                return res.status(404).json({ massage: "User Not Exist" })
+                                return res.status(403).json({ massage: "User not find !" })
                             }
                             if (req.body.password !== staff[0].password) {
-                                return res.status(404).json({ massage: "Wront Password Provided !!" })
+                                return res.status(404).json({ massage: "Wrong Password Provided !!" })
                             }
 
                             let token = jwt.sign(
                                 {
                                     name: staff[0]._id,
                                     type: staff[0].type,
+                                    email:staff[0].ID
                                 },
                                 TOKEN_SECRET_KAY,
                                 {
                                     expiresIn: '4h'
                                 }
                             )
-                            res.status(200).json({ token: `Bearer ` + token })
+                            return  res.status(200).json({ token: `Bearer ` + token })
                         })
                         .catch(err => {
                             console.log(err)
-                            res.status(500).json({ massage: 'Server error occurd !' })
+                            return res.status(500).json({ massage: 'Server error occurd !' })
                         })
                 } else {
                     bcrypt.compare(req.body.password, user.password, (err, success) => {
@@ -109,7 +110,7 @@ module.exports = {
         let randID = getRandom(12)
         let randPassword = getRandom(6).toString()
         new staffModel({
-            ID: randID,
+            ID: parseInt(randID),
             password: randPassword,
             allInformation: req.body,
             type: req.body.staff.staffType
