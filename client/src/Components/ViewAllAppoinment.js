@@ -111,6 +111,10 @@ const ViewAllAppoinment = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        {
+          getAllAppoinmentState.length < 1 ?
+            <h3 className="text-center text-info" style={{ marginTop: '140px' }}> Empty</h3> : ''
+        }
       </div>
     </div>
   );

@@ -10,18 +10,22 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios'
 
+import PatientRequestModal from './PatientRequestModal'
+
 import { useRecoilState } from 'recoil'
 import { allPatientState } from '../util/recoilState'
+import decoder from 'jwt-decode'
+import { Button } from '@material-ui/core';
 
 
-
-const ViewPatient = () => {
+const SeeResult = () => {
   const [getAllPatientState, setallPatientState] = useRecoilState(allPatientState)
 
   const [patient, setPatient] = useState([])
   const [upatient, setuPatient] = useState([])
   const [search, setSearch] = useState("")
 
+  const [filteredPatient, setFilteredPatient] = useState([])
 
   const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -40,70 +44,57 @@ const ViewPatient = () => {
     },
   }))(TableRow);
   useEffect(() => {
+    
+    let token =window.localStorage.getItem('userStore')
+    let decoded=decoder(token)
+    
     axios.get('/get-patients')
       .then(res => {
-        setallPatientState(res.data)
+        let filterDoctors = res.data.filter(single => single.request == decoded.email)
+        setFilteredPatient(filterDoctors)
       })
       .catch(err => {
       })
-
   }, [])
-  const updateInfo = (e) => {
-    // const searchName = e.currentTarget.value
-    // const allData = [...patient]
-    // if (searchName == "") {
-    //   return setuPatient(patient)
-    // }
-    // patient.map(pat => console.log(typeof (pat.UHID)))
-    // const filteredCountries = allData.filter(pat => {
-    //   return pat.UHID.toString().indexOf(searchName) !== -1;
-    // });
-    // setuPatient(filteredCountries)
-    // setSearch(searchName)
-  }
   return (
     <div>
       <Sidebar />
       <div style={{ paddingLeft: '220px', paddingTop: '30px' }}>
         <div class="form-group col-md-12">
-
-          <input type="text" class="form-control" name="SearchPatient" onChange={(e) => updateInfo(e)} required id="inputPassword4" placeholder="Search Patient" />
+          <h2>Make A Request</h2>
+          <p onClick={() => { console.log(filteredPatient, getAllPatientState) }}> (Only Avilable Patient Included in Table)</p>
         </div>
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
                 <StyledTableCell>UHID</StyledTableCell>
-                <StyledTableCell align="right"> Name</ StyledTableCell>
-                <StyledTableCell align="right">Gender</StyledTableCell>
-                <StyledTableCell align="right">BloodGroup </StyledTableCell>
-                <StyledTableCell align="right"> Date of Birth</StyledTableCell>
-                <StyledTableCell align="right">Nationality</StyledTableCell>
+                <StyledTableCell align="center"> Name</ StyledTableCell>
+                <StyledTableCell align="center">Gender</StyledTableCell>
+                <StyledTableCell align="center">BloodGroup </StyledTableCell>
+                <StyledTableCell align="center"> Date of Birth</StyledTableCell>
+                <StyledTableCell align="center">Status</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {getAllPatientState.map(pat => (
+              {filteredPatient.map(pat => (
                 <StyledTableRow >
                   <TableCell scope="row">
                     {pat.UHID}
                   </TableCell>
-                  <StyledTableCell align="right">{pat.patientInfo[0].basic.name}</StyledTableCell>
-                  <StyledTableCell align="right"> {pat.patientInfo[0].basic.gender}  </StyledTableCell>
-                  <StyledTableCell align="right">  {pat.patientInfo[0].basic.bloodGroup}</StyledTableCell>
-                  <StyledTableCell align="right">  {pat.patientInfo[0].basic.date}</StyledTableCell>
-                  <StyledTableCell align="right">{pat.patientInfo[0].basic.nationality}</StyledTableCell>
-
-
+                  <StyledTableCell align="center">{pat.patientInfo[0].basic.name}</StyledTableCell>
+                  <StyledTableCell align="center"> {pat.patientInfo[0].basic.gender}  </StyledTableCell>
+                  <StyledTableCell align="center">  {pat.patientInfo[0].basic.bloodGroup}</StyledTableCell>
+                  <StyledTableCell align="center">  {pat.patientInfo[0].basic.date}</StyledTableCell>
+                  <StyledTableCell align="center"> {pat.accept? <Button  variant="outlined" color="primary" > Accepted </Button>:<Button  variant="outlined" color="secondary" >Pending</Button>} </StyledTableCell>
                 </StyledTableRow>
               ))
               }
-
             </TableBody>
-
           </Table>
         </TableContainer>
         {
-          getAllPatientState.length < 1 ?
+          filteredPatient.length < 1 ?
             <h3 className="text-center text-info" style={{ marginTop: '140px' }}> Empty</h3> : ''
         }
       </div>
@@ -111,4 +102,4 @@ const ViewPatient = () => {
   );
 }
 
-export default ViewPatient;
+export default SeeResult

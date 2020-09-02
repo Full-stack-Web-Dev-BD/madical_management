@@ -60,14 +60,14 @@ module.exports = {
                                 {
                                     name: staff[0]._id,
                                     type: staff[0].type,
-                                    email:staff[0].ID
+                                    email: staff[0].ID
                                 },
                                 TOKEN_SECRET_KAY,
                                 {
                                     expiresIn: '4h'
                                 }
                             )
-                            return  res.status(200).json({ token: `Bearer ` + token })
+                            return res.status(200).json({ token: `Bearer ` + token })
                         })
                         .catch(err => {
                             console.log(err)
@@ -107,7 +107,7 @@ module.exports = {
         function getRandom(length) {
             return Math.floor(Math.pow(10, length - 1) + Math.random() * 9 * Math.pow(10, length - 1));
         }
-        let randID = getRandom(12)
+        let randID = getRandom(6)
         let randPassword = getRandom(6).toString()
         new staffModel({
             ID: parseInt(randID),

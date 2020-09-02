@@ -10,7 +10,9 @@ module.exports = {
         let randID = getRandom(8)
         new patientModel({
             patientInfo: req.body,
-            UHID: parseInt(randID)
+            UHID: parseInt(randID),
+            request:0,
+            accept:false
         })
             .save()
             .then(doc => {
@@ -42,6 +44,28 @@ module.exports = {
                 console.log(err)
                 return res.status(500).json({ massage: 'Server error ' })
             })
+    },
+    findPatientTomakeInvoice(req, res) {
+        invoiceModel.find({UHID:req.params.id})
+        .then(invoice=>{
+            if(invoice.length===0){
+                
+                patientModel.find({ UHID: req.params.id })
+                .then(patient => {
+                    if (patient.length !== 0) {
+                        res.status(200).json(patient[0].patientInfo)
+                    } else {
+                        res.status(404).json({ massage: "Patient Not Found" })
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                    return res.status(500).json({ massage: 'Server error ' })
+                })
+            }else{
+                return res.status(403).json({message:"Invoice Existing !!!"})
+            }
+        })
     },
     bookAppoint(req, res) {
         new appointModel({
@@ -99,5 +123,39 @@ module.exports = {
         .catch(err=>{
             res.status(500).json({massage:"Server error occurd "})
         })
-    }
+    },
+    makeRequest(req,res){
+        patientModel.findOne({UHID:req.body.UHID})
+        .then(patient=>{
+            patient.request=req.body.ID
+            patient.save()
+            .then(doc=>{
+                console.log('Requested ')
+                res.status(200).json({massage:"Request success"})
+            })
+            .catch(err=>{
+                res.status(500).json({massage:"server error "})
+            })
+        })
+        .catch(err=>{
+            res.status(500).json({massage:"server error "})
+        })
+    },
+    doAccept(req, res) {
+        patientModel.findOne({UHID:req.params.id})
+        .then(patient=>{
+            patient.accept=true
+            patient.save()
+            .then(doc=>{
+                console.log('Requested ')
+                res.status(200).json({massage:"Request success"})
+            })
+            .catch(err=>{
+                res.status(500).json({massage:"server error "})
+            })
+        })
+        .catch(err=>{
+            res.status(500).json({massage:"server error "})
+        })
+    },
 }

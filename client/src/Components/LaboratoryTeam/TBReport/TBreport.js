@@ -24,7 +24,7 @@ const TBreport = (props) => {
     }
     useEffect(()=>{
         console.log(props.match)
-        axios.get(`http://localhost:4001/api/labRequest/TBReport/${props.match.params.RequestID}`)
+        axios.get(`http://localhost:4001/api/labRequest/TBReport`)
         .then(res=>{
                 console.log(res.data)
                 setData(res.data)
@@ -41,7 +41,7 @@ const TBreport = (props) => {
         e.preventDefault()
         console.log(data)
         axios
-        .put(`http://localhost:4001/api/labRequest/TBReport/${props.match.params.RequestID}`,{
+        .put(`http://localhost:4001/api/labRequest/TBReport`,{
       
             DST:data.DST,
             result:data.result

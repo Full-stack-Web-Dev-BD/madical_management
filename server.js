@@ -25,7 +25,7 @@ app.use(require('./routes/staffRouter'))
 
 app.listen(PORT,()=>{
     console.log('Server started on port ',PORT)
-    mongose.connect('mongodb://localhost/EMR-System',{useFindAndModify:true,useUnifiedTopology:true,useNewUrlParser:true}, err=>{
+    mongose.connect('mongodb://localhost/EMR-System',{useFindAndModify:false,useUnifiedTopology:true,useNewUrlParser:true}, err=>{
         if(err){
             console.log('Database connection failed !! ')
         }

@@ -48,7 +48,7 @@ const HCVForm = (props) => {
     })
     useEffect(()=>{
         console.log(props.match)
-        axios.get(`http://localhost:4001/api/labRequest/hcvViral/${props.match.params.RequestID}`)
+        axios.get(`http://localhost:4001/api/labRequest/hcvViral`)
         .then(res=>{
                 console.log(res.data)
                 setHCV(res.data)
@@ -88,7 +88,7 @@ const HCVForm = (props) => {
         e.preventDefault()
         console.log(hcv.result1)
         console.log(hcv.result2)
-            axios.put(`http://localhost:4001/api/labRequest/hcvViral/${props.match.params.RequestID}`,{ 
+            axios.put(`http://localhost:4001/api/labRequest/hcvViral`,{ 
                 result1:hcv.result1,
              result2:hcv.result2,       })
             .then(res => {

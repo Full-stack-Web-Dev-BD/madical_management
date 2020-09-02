@@ -9,14 +9,14 @@ import { useRecoilState, useRecoilValue } from 'recoil'
 import { userInfoState, isAuthenticated } from './recoilState'
 
 
-const ReceptionistRoute = ({ component: Component, ...rest }) => {
+const LabTechRouter = ({ component: Component, ...rest }) => {
     const [getUserInfo, setUserInfo] = useRecoilState(userInfoState)
     const [getIsAuthenticated, setIsAuthenticated] = useRecoilState(isAuthenticated)
     useEffect(() => {
         let token = window.localStorage.getItem('userStore')
         if (token) {
             let decoded = decoder(token)
-            Axios.post('/get-permissoin', { for: 'Receptionist' }, { headers: { 'authorization': token } })
+            Axios.post('/get-permissoin', { for:'Lab Technician' }, { headers: { 'authorization': token } })
                 .then(res => {
                     setUserInfo(res.data.user)
                     setIsAuthenticated(true)
@@ -58,4 +58,4 @@ const ReceptionistRoute = ({ component: Component, ...rest }) => {
     )
 }
 
-export default ReceptionistRoute
+export default LabTechRouter

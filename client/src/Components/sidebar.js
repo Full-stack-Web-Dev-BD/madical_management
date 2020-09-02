@@ -37,6 +37,8 @@ const Sidebar = (props) => {
                 <li><Link to="/viewAppoinment" id="word"> Appointments</Link></li>
                 <li><Link to="/view-invoice" id="word"> Payment</Link></li>
                 <li><Link to="/create-invoice" id="word"> Create Invoice</Link></li>
+                <li><Link to="/make-request" id="word"> Make A Request</Link></li>
+                <li><Link to="/view-result" id="word"> View Result</Link></li>
                 <li><a style={{cursor:"pointer"}} id="word" onClick={(e)=>{logout(e)}}> Sign Out</a></li>
             </ul>
         </div>

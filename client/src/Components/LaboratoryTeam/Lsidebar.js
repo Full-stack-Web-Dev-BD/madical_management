@@ -39,7 +39,7 @@ const Lsidebar = (props) => {
       <ul class="ulDashboard ">
         <li><Link id="word"> Dashboard</Link></li>
         <li><Link to="/FormView" id="word"> CheckRequest</Link></li>
-        <li><a href="" id="word" onClick={()=>{logout()}> Logout</a></li>
+        <li><a href="" id="word" onClick={()=>{logout()}}> Logout</a></li>
       </ul>
     </div>
   );

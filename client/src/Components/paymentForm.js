@@ -23,7 +23,7 @@ const PaymentForm = (props) => {
     function getRandom(length) {
       return Math.floor(Math.pow(10, length - 1) + Math.random() * 9 * Math.pow(10, length - 1));
     }
-    setInvoiceID(getRandom(10) + 'P')
+    setInvoiceID(parseInt( getRandom(10)) + 'P')
   }, [])
   useEffect(() => {
     if (v) {
@@ -37,7 +37,7 @@ const PaymentForm = (props) => {
   }, [v])
 
   const findPatient = () => {
-    axios.get(`/get-single-patient/${UHID}`)
+    axios.get(`/get-patient-for-invoice/${UHID}`)
       .then(res => {
         if (res.data.length > 0) {
           let update = { ...res.data[0] }
@@ -50,7 +50,16 @@ const PaymentForm = (props) => {
         }
       })
       .catch(err => {
-        console.log(err)
+        if(err.response.status==403){
+          alert('Invoice Existing')
+        }
+        if(err.response.status==404){
+          alert('Patient Not Found')
+        }
+        if(err.response.status==500){
+          alert('Server')
+        }
+        console.log(err.response.data)
       })
   }
   return (
@@ -74,7 +83,7 @@ const PaymentForm = (props) => {
             .then((res) => {
               console.log("Success")
               alert('Invoice Created')
-              props.history.push('/')
+              window.location.href='/view-invoice'
             })
             .catch((error) => {
               alert('server error')

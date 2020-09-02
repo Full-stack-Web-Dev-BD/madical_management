@@ -1,4 +1,4 @@
-import React,{memo} from 'react';
+import React, { memo } from 'react';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -8,34 +8,20 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 import axios from 'axios'
-const  ChildForm12= ({culture,retrieve,handleChange,handleSubmit,initialChange}) => {
-    return (  
-        
-        <Card variant="outlined" style={{padding:'20px'}} >
-        <style>{`
+const ChildForm12 = ({ culture, retrieve, handleChange, handleSubmit, initialChange }) => {
+    return (
 
-th,td{
-border:1px solid black;
-},
-
-#tdn:{
-border:none;
-}
-`}</style>
-        <CardContent>
-
-           
+        <Card variant="outlined" style={{ padding: '20px' }} >
+            <style>{`th,td{border:1px solid black;},#tdn:{border:none;}`}</style>
+            <CardContent>
                 <form onSubmit={handleSubmit}>
-                   
-                        <Grid container spacing={1}>
-                            <Grid item xs={4}>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <h5 style={{ marginLeft: '50px' }}><b><u>NATIONAL HEALTH LABORATORY</u></b></h5>
-                            </Grid>
+                    <Grid container spacing={1}>
+                        <Grid item xs={4}>
                         </Grid>
-                  
-
+                        <Grid item xs={6}>
+                            <h5 style={{ marginLeft: '50px' }}><b><u>NATIONAL HEALTH LABORATORY</u></b></h5>
+                        </Grid>
+                    </Grid>
                     <div style={{ flexGrow: 1 }}>
                         <Grid container spacing={1}>
                             <Grid item xs={4}>
@@ -45,18 +31,16 @@ border:none;
                             </Grid>
                         </Grid>
                     </div>
-
                     <br></br>
                     <div style={{ flexGrow: 1 }}>
                         <Grid container spacing={1}>
-                        <Grid item xs={3}> <div class="form-row" style={{paddingTop:'20px'}}>
-<div class="form-group col-md-4">
-
-<input type="text" onChange={initialChange} class="form-control"  name="PatientUHID"  required id="inputEmail4" placeholder="UHID"/>
-</div>
-<input class="btn btn-primary" type="button"  value="Get Data"  onClick={retrieve} />  
-</div>
-</Grid>
+                            <Grid item xs={3}> <div class="form-row" style={{ paddingTop: '20px' }}>
+                                <div class="form-group col-md-4">
+                                    <input type="text" onChange={initialChange} class="form-control" name="PatientUHID" required id="inputEmail4" placeholder="UHID" />
+                                </div>
+                                <input class="btn btn-primary" type="button" value="Get Data" onClick={retrieve} />
+                            </div>
+                            </Grid>
                             <Grid item xs={3}>
                                 <b>  PATIENT NAME : </b>
                                 <TextField
@@ -185,9 +169,9 @@ border:none;
                                     id="TR"
                                     type="text"
                                     onChange={handleChange}
-                                    
+
                                     value={culture.test}
-                                  
+
                                 />
                             </Grid>
                         </Grid>
@@ -279,7 +263,7 @@ border:none;
 
                             <Grid item xs={2}>
                                 <b>Isolate</b>     </Grid>
-                                <Grid item xs={3}>
+                            <Grid item xs={3}>
                                 <TextField
                                     id="IS"
                                     type="text"
@@ -288,7 +272,7 @@ border:none;
                                     name="isolate"
                                     style={{ width: '50%' }}
                                 />
-                           
+
                             </Grid>
                         </Grid>
                     </div>
@@ -327,7 +311,7 @@ border:none;
                                 />
                             </Grid>
                             <Grid item xs={2}>
-                                <b> Ciprofloxycin</b> 
+                                <b> Ciprofloxycin</b>
                             </Grid>
                             <Grid item xs={3}>
 
@@ -906,7 +890,7 @@ border:none;
                                     type="text"
                                     name="TE"
                                     onChange={handleChange}
-                                   
+
                                     value={culture.TE}
                                     style={{ width: '50%' }}
                                 />
@@ -985,10 +969,10 @@ border:none;
                         </Grid>
                     </div>
                 </form>
-          
-        </CardContent >
-    </Card >
+
+            </CardContent >
+        </Card >
     );
 }
- 
-export default memo(ChildForm12) ;
+
+export default memo(ChildForm12);

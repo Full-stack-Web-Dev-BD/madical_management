@@ -40,21 +40,12 @@ import Syphlis from './Components/Doctor/NHLForms/Syphlis'
 import  HivSample from './Components/Doctor/NHLForms/HivSample'
 import HIVViral from './Components/Doctor/NHLForms/HIVViral'
 import ResultView from './Components/Doctor/ViewResult/resultView'
-import Lhome from './Components/LaboratoryTeam/Lhome'
-import FormView from './Components/LaboratoryTeam/FormView'
-import TestFill from './Components/LaboratoryTeam/TestFill'
 import Viewdata from './Components/Doctor/ViewResult/Viewdata'
-import ChemLay from './Components/LaboratoryTeam/chemistry/Chemlay'
 import ChemShow from './Components/LaboratoryTeam/chemistry/Chemshow'
-import HCVForm from './Components/LaboratoryTeam/HCVViral/HCVForm'
-import HBLform from './Components/LaboratoryTeam/HBLViral/HBLform'
-import HIVForm from './Components/LaboratoryTeam/HIVViral/HIVForm'
 import HivVirals from './Components/Doctor/ViewResult/hivViral'
 import HCVViralview from './Components/Doctor/ViewResult/HCVViralview'
 import HBLViralview from './Components/Doctor/ViewResult/HBLViralview'
-import TBreport from './Components/LaboratoryTeam/TBReport/TBreport'
 import Tbreport from './Components/Doctor/ViewResult/Tbreport'
-import Culture from './Components/LaboratoryTeam/culture/Culture'
 
 
 
@@ -63,6 +54,22 @@ import ViewPatient from './Components/ViewPatients'
 import BookAppointment from './Components/bookAppointment'
 import Payment from './Components/payment'
 import PaymentForm from './Components/paymentForm'
+
+
+
+
+// lab
+import Lhome from './Components/LaboratoryTeam/Lhome'
+import FormView from './Components/LaboratoryTeam/FormView'
+import TestFill from './Components/LaboratoryTeam/TestFill'
+import ChemLay from './Components/LaboratoryTeam/chemistry/Chemlay'
+import HCVForm from './Components/LaboratoryTeam/HCVViral/HCVForm'
+import HBLform from './Components/LaboratoryTeam/HBLViral/HBLform'
+import HIVForm from './Components/LaboratoryTeam/HIVViral/HIVForm'
+import TBreport from './Components/LaboratoryTeam/TBReport/TBreport'
+import Culture from './Components/LaboratoryTeam/culture/Culture'
+
+
 
 function App() {
   return (
@@ -75,30 +82,21 @@ function App() {
       <Route path="/form13"  component={Form13}/>
       <Route path="/form14"  component={Form14}/>
       <Route path="/form15"  component={Form15}/>
-      <Route path="/LabTbreport/:RequestID"  component={TBreport}/>
-      <Route path="/Culture/:RequestID"  component={Culture}/>
       <Route path="/HCVViralvew/:RequestID"  component={HCVViralview}/>
       <Route path="/Tbreport/:RequestID"  component={Tbreport}/>
       <Route path="/HBLViralview/:RequestID"  component={HBLViralview}/>
-      <Route path="/HCVViralform/:RequestID"  component={HCVForm}/>
-      <Route path="/Chemlab/:RequestID" component={ChemLay} />
       <Route path="/Hivvirals/:RequestID" component={HivVirals} />
       <Route path="/Chemshow/:RequestID" component={ChemShow} />
       <Route path="/Viewdata/:RequestID" component={Viewdata} />
-      <Route path="/HBLViralform/:RequestID" component={HBLform} />
-      <Route path="/HIVViralform/:RequestID" component={HIVForm} />
-      <Route path="/FormView" component={FormView} />
       <Route path="/ResultView"  component={ResultView}/>
       <Route path="/HivDna" component={HIVDNA} />
       <Route path="/HBVViral" component={HBVViral} />
       <Route path="/Syphlis" component={Syphlis} />
-      <Route path="/LabManagement" component={Lhome} />
       <Route path="/HivSample" component={HivSample} />
       <Route path="/Confirmation" component={Confirmationform} />
       <Route path="/consultation" component={Consultation} />
       <Route path="/chemistry" component={Chemistry} />
       <Route path="/RequestTest" component={RLabTest} />
-      <Route path="/testFill/:RequestID" exact component={TestFill} />
       <Route path="/patientManagement/:UHID" exact component={PatientManagement}/>
       <Route path="/patientList" exact component={PatientList}/>
       <Route path="/Hform" component={Hform}/>
@@ -131,6 +129,19 @@ function App() {
       <Route path="/bookAppointment" component={BookAppointment} />
       <Route path="/payment" component = {Payment}/>
       <Route path="/paymentForm" component={PaymentForm}/>
+
+
+
+{/* Lhome */}
+<Route path="/LabManagement" component={Lhome} />
+<Route path="/FormView" component={FormView} />
+<Route path="/testFill/:RequestID" exact component={TestFill} />
+<Route path="/Chemlab/:RequestID" component={ChemLay} />
+<Route path="/HCVViralform/:RequestID"  component={HCVForm}/>
+<Route path="/HBLViralform/:RequestID" component={HBLform} />
+<Route path="/HIVViralform/:RequestID" component={HIVForm} />
+<Route path="/LabTbreport/:RequestID"  component={TBreport}/>
+<Route path="/Culture/:RequestID"  component={Culture}/>
 
       </Switch>
       </Router>

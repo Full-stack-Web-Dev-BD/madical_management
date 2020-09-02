@@ -19,7 +19,6 @@ const FormR = () => {
         setAll(true) 
     }
     const completedData=()=>{
-        console.log("He")
         setAll(false)
         setComplete(true)
     }

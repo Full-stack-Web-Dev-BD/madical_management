@@ -68,33 +68,13 @@ const Adashboard = (props) => {
     axios.get('/get-patients')
       .then(res => {
         setAllPatientState(res.data)
+
       })
       .catch(err => {
         console.log(err)
       })
   }, [])
 
-  // useEffect(() => {
-  //     const decoded = jwt_decode(data);
-  //     const Ustaff = axios.get(`http://localhost:4001/api/user/${decoded.email}`)
-  //     const staff = axios.get(`http://localhost:4001/api/Staff`);
-  //     const patient = axios.get(`http://localhost:4001/api/patient`);
-  //     const book = axios.get(`http://localhost:4001/api/BookAppoint`);
-  //     axios.all([Ustaff, staff, patient, book])
-  //       .then(axios.spread((...res) => {
-  //         var uStaff = res[0].data
-  //         var doctor = res[1].data.filter(({ staffInformation: { staffType: type } }) => type === "Doctor")
-  //         var lab = res[1].data.filter(({ staffInformation: { staffType } }) => staffType === "Lab Technician")
-  //         var patient = res[2].data
-  //         var book = res[3].data
-  //         setAdmin(uStaff)
-  //         setDoctor(doctor.length)
-  //         setLab(lab.length)
-  //         setPatient(patient.length)
-  //         setBooking(book.length)
-  //       }))
-  //       .catch(error => console.log(error))
-  // }, [])
   if (getIsAuthenticated) {
     return (
       <div class="stats" >
@@ -116,7 +96,7 @@ const Adashboard = (props) => {
                         <span style={{ fontWeight: 'bold' }}>Name:</span>  <span style={{ textTransform: 'capitalize' }}>{getUserInfo.name}</span>
                       </Typography>
                       <Typography gutterBottom variant="p" style={{ paddingLeft: '3px', marginTop: '25px' }} component="h5">
-                        <span onClick={() => console.log(getUserInfo)} style={{ fontWeight: 'bold' }}>Email:</span>  {getUserInfo.email}
+                        <span  style={{ fontWeight: 'bold' }}>Email:</span>  {getUserInfo.email}
                       </Typography>
                     </CardContent>
                   </CardActionArea>

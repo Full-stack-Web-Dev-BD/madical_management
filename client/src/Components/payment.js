@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios'
+import PatientModal from './PatientModal';
 
 const Payment = (props) => {
 
@@ -72,7 +73,7 @@ const Payment = (props) => {
                       <StyledTableCell align="center">{s.paid} </StyledTableCell>
                       <StyledTableCell align="center">{(s.total-s.paid)} </StyledTableCell>
                       <StyledTableCell align="center"> {s.dueDate}</StyledTableCell>
-                      <StyledTableCell align="center"><button className="btn btn-info btn-sm">View And Print</button></StyledTableCell>
+                      <StyledTableCell align="center"><PatientModal s={s}/></StyledTableCell>
                     </StyledTableRow>
                   )
                 })
@@ -80,6 +81,10 @@ const Payment = (props) => {
             </TableBody>
           </Table>
         </TableContainer>
+        {
+          invoices.length < 1 ?
+            <h3 className="text-center text-info" style={{ marginTop: '140px' }}> Empty</h3> : ''
+        }
       </div>
     </div>
   );

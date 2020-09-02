@@ -2,17 +2,16 @@ import React from 'react';
 import Lsidebar from './Lsidebar'
 import FormR from './FormR'
 const FormView = () => {
-    return ( 
+    return (
         <div>
-        <Lsidebar/>
-     
-     <div style={{marginLeft:'220px'}}>
-       <div style={{padding:'20px'}}>
-           <FormR/>
+            <Lsidebar />
+            <div style={{ marginLeft: '220px' }}>
+                <div style={{ padding: '20px' }}>
+                    <FormR />
+                </div>
+            </div>
         </div>
-        </div>
-        </div>
-     );
+    );
 }
- 
+
 export default FormView;

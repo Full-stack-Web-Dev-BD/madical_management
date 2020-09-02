@@ -67,16 +67,6 @@ const ViewAllDoctor = () => {
     console.log(patient)
   }
   const updateInfo = (e) => {
-    // const searchName = e.currentTarget.value
-    // const allData = [...patient]
-    // if (searchName == "") {
-    //   return setuPatient(patient)
-    // }
-    // const filteredCountries = allData.filter(pat => {
-    //   return pat.SID.toString().indexOf(searchName) !== -1;
-    // });
-    // setuPatient(filteredCountries)
-    // setSearch(searchName)
   }
   return (
     <div>
@@ -114,6 +104,10 @@ const ViewAllDoctor = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        {
+          getDoctorsState.length < 1 ?
+            <h3 className="text-center text-info" style={{ marginTop: '140px' }}> Empty</h3> : ''
+        }
       </div>
     </div>
   );

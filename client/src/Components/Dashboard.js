@@ -77,35 +77,6 @@ const Dashboard = (props) => {
   }, [])
 
 
-  // useEffect(() => {
-  //     const data = localStorage.getItem('userStore')
-  //     const decoded = jwt_decode(data);
-  //     console.log(decoded)
-
-  //     if(data == null)
-  //     {
-  //         props.history.push('/');
-  //     }
-  //     else{
-
-  //         const getData =async()=>{
-  //             const staff = await axios.get(`http://localhost:4001/api/User/${decoded.email}`)
-  //             const Appointments = await axios.get(`http://localhost:4001/api/BookAppoint`);
-  //             const Doctor = await axios.get(`http://localhost:4001/api/Staff`);
-  //             const patient = await axios.get(`http://localhost:4001/api/patient`);
-
-  //             var doctor = Doctor.data.filter(({staffInformation:{staffType : type}})=>type === "Doctor")
-  //             var patients = patient.data
-
-  //             setRecep(staff.data)
-  //             setAppoint(Appointments.data.length)
-  //             setDoctor(doctor.length)
-  //             setPatient(patients.length)
-  //             console.log(Appointments.data.length)
-  //         }
-  //       getData()
-  //     }
-  // }, [])
   const classes = useStyles();
   return (
     <div class="stats">

@@ -23,7 +23,8 @@ module.exports = {
                                 if (staff.length === 0) {
                                     return res.status(403).json({ massage: "You have no access ( not exist)!!" })
                                 }
-                                if (user.type === staff[0].type) {
+                                if (req.body.for === staff[0].type) {
+                                    console.log('Not accessed')
                                     return res.status(200).json({ massage: "You are authenticated !!", user: dbUser[0] })
                                 } else {
                                     return res.status(403).json({ massage: "You have no access !!" })

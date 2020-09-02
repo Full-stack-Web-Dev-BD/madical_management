@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import DatePicker from 'react-date-picker';
@@ -32,10 +32,10 @@ const useStyles = makeStyles({
         marginBottom: 12,
     },
 });
-const HIVViralComp = ({purpose,hcv,handleChange,submitter,handleResult,handleResult1,initialChange,retrieve}) => {
+const HIVViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, handleResult1, initialChange, retrieve }) => {
     const classes = useStyles();
-    return ( 
-      
+    return (
+
         <Card className={classes.root} variant="outlined" >
             <style>{`
     
@@ -52,82 +52,82 @@ const HIVViralComp = ({purpose,hcv,handleChange,submitter,handleResult,handleRes
                 <Typography variant="body2" component="p">
 
                     <div style={{ flexGrow: 1 }} >
-                      
-                            <center>    <h5><b>Ministry of Health</b></h5>
-                                <h5><b>National Health Laboratory</b></h5>
-                                <h5><b>HIV VIRAL load Request Form</b></h5></center>
-                         
+
+                        <center>    <h5><b>Ministry of Health</b></h5>
+                            <h5><b>National Health Laboratory</b></h5>
+                            <h5><b>HIV VIRAL load Request Form</b></h5></center>
+
                     </div>
 
 
 
                     <div style={{ flexGrow: 1 }}>
                         <Grid container spacing={12}>
-                        
+
                             <Grid item xs={12} >
 
-                                <table className={classes.brdr} style={{ width: '100%' ,padding:'20px'}}>
+                                <table className={classes.brdr} style={{ width: '100%', padding: '20px' }}>
                                     <b>1. IDENTIFICATION</b>
                                     <br></br>
                                     <br></br>
                                     <tr>
                                         <div style={{ flexGrow: 1 }}>
-                                        <Grid container spacing={1}>
-                                        <Grid item xs={3}>
-                                        <div class="form-group col-md-4">
-     
-     <input type="text" onChange={initialChange} class="form-control"  name="PatientUHID"  required id="inputEmail4" placeholder="UHID"/>
-     </div>
-     <input class="btn btn-primary" type="button"  value="Get Data"  onClick={retrieve} />  
-     </Grid>
-     <Grid item xs={6} >
-     <b> Patient Name:</b>
-       
-       <TextField
-                           name="firstName"
-                            type="text"
-                            value={hcv.firstName}
-                            className={classes.textField}
-                            onChange={handleChange}
-                            InputLabelProps={{
-                               shrink: true,
-                           }}
-                        />
-  </Grid>
-  <Grid item xs={6} >
-   <b>  National ID Number: </b>
-                        <TextField
-                           name="nationalIdNumber"
-                            type="text"
-                            value={hcv.nationalIdNumber}
-                            className={classes.textField}
-                            onChange={handleChange}
-                            InputLabelProps={{
-                               shrink: true,
-                           }}
-                        />
-                        </Grid>   </Grid>
+                                            <Grid container spacing={1}>
+                                                <Grid item xs={3}>
+                                                    <div class="form-group col-md-4">
 
-                     
-       
-                      
+                                                        <input type="text" onChange={initialChange} class="form-control" name="PatientUHID" required id="inputEmail4" placeholder="UHID" />
+                                                    </div>
+                                                    <input class="btn btn-primary" type="button" value="Get Data" onClick={retrieve} />
+                                                </Grid>
+                                                <Grid item xs={6} >
+                                                    <b> Patient Name:</b>
 
-                        <Grid container spacing={3}>
- <Grid item xs={4}>
-       <b> Date of Birth:</b>
- 
-   <DatePicker
-    name="dateOfBirth"
-     value={hcv.dateOfBirth}
-      disabled
-   
-   />
-  </Grid>
+                                                    <TextField
+                                                        name="firstName"
+                                                        type="text"
+                                                        value={hcv.firstName}
+                                                        className={classes.textField}
+                                                        onChange={handleChange}
+                                                        InputLabelProps={{
+                                                            shrink: true,
+                                                        }}
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={6} >
+                                                    <b>  National ID Number: </b>
+                                                    <TextField
+                                                        name="nationalIdNumber"
+                                                        type="text"
+                                                        value={hcv.nationalIdNumber}
+                                                        className={classes.textField}
+                                                        onChange={handleChange}
+                                                        InputLabelProps={{
+                                                            shrink: true,
+                                                        }}
+                                                    />
+                                                </Grid>   </Grid>
 
 
 
 
-</Grid>
+
+                                            <Grid container spacing={3}>
+                                                <Grid item xs={4}>
+                                                    <b> Date of Birth:</b>
+
+                                                    <DatePicker
+                                                        name="dateOfBirth"
+                                                        value={hcv.dateOfBirth}
+                                                        disabled
+
+                                                    />
+                                                </Grid>
+
+
+
+
+                                            </Grid>
                                             <Grid container spacing={1}>
 
                                                 <Grid item xs={3}>
@@ -220,34 +220,34 @@ const HIVViralComp = ({purpose,hcv,handleChange,submitter,handleResult,handleRes
 
                                                 <Grid item xs={4}>
                                                     <b>  Date of Specimen collection : </b>
-                                                    {purpose=="update"?<input type="text" value={hcv.specimenDate} />:
-                                                    <TextField
-                                                        id="date"
-                                                        name="specimenDate"
-                                                      
-                                                        type="date"
-                                                        onChange={handleChange}
-                                               
-                                                        className={classes.textField}
-                                                        InputLabelProps={{
-                                                            shrink: true,
-                                                        }}
-                                                    />}
+                                                    {purpose == "update" ? <input type="text" value={hcv.specimenDate} /> :
+                                                        <TextField
+                                                            id="date"
+                                                            name="specimenDate"
+
+                                                            type="date"
+                                                            onChange={handleChange}
+
+                                                            className={classes.textField}
+                                                            InputLabelProps={{
+                                                                shrink: true,
+                                                            }}
+                                                        />}
                                                 </Grid>
                                                 <Grid item xs={4}>
                                                     <b>   Date Sent to NHL : </b>
-                                                     {purpose=="update"?<input type="text" value={hcv.NHLDate} />:
-                                                    <TextField
-                                                        id="date"
-                                                        name="NHLDate"
-                                                        onChange={handleChange}
-                                                        type="date"
-                                                    
-                                                        className={classes.textField}
-                                                        InputLabelProps={{
-                                                            shrink: true,
-                                                        }}
-                                                    />}
+                                                    {purpose == "update" ? <input type="text" value={hcv.NHLDate} /> :
+                                                        <TextField
+                                                            id="date"
+                                                            name="NHLDate"
+                                                            onChange={handleChange}
+                                                            type="date"
+
+                                                            className={classes.textField}
+                                                            InputLabelProps={{
+                                                                shrink: true,
+                                                            }}
+                                                        />}
                                                 </Grid>
                                             </Grid>
                                         </div>
@@ -289,7 +289,7 @@ const HIVViralComp = ({purpose,hcv,handleChange,submitter,handleResult,handleRes
                     <div style={{ flexGrow: 1 }}>
                         <Grid container spacing={3}>
 
-                          
+
                             <Grid item xs={12}>
                                 <table style={{ width: '90%' }}>
                                     <th >
@@ -546,24 +546,24 @@ const HIVViralComp = ({purpose,hcv,handleChange,submitter,handleResult,handleRes
                                     name="reportBy"
                                     value={hcv.reportBy}
                                     onChange={handleChange}
-                                
+
                                     className={classes.textField}
                                 />
                             </Grid>
                             <Grid item xs={3}>
                                 <b>   Date : </b>
-                                {purpose=="update"?<input type="text" value={hcv.referralDate} />:
-                                <TextField
-                                    id="date"
-                                    name="referralDate"
-                                    type="date"
-                                   
-                                    onChange={handleChange}
-                                    className={classes.textField}
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                />}
+                                {purpose == "update" ? <input type="text" value={hcv.referralDate} /> :
+                                    <TextField
+                                        id="date"
+                                        name="referralDate"
+                                        type="date"
+
+                                        onChange={handleChange}
+                                        className={classes.textField}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />}
                             </Grid>
                             <Grid item xs={3}>
                                 <b>  Sig : </b>
@@ -589,7 +589,7 @@ const HIVViralComp = ({purpose,hcv,handleChange,submitter,handleResult,handleRes
                             <Grid item xs={3}>
                                 <b>  Approaved by : </b>
                                 <TextField
-                                name="approveBy"
+                                    name="approveBy"
                                     id="address"
                                     onChange={handleChange}
                                     value={hcv.approveBy}
@@ -599,18 +599,18 @@ const HIVViralComp = ({purpose,hcv,handleChange,submitter,handleResult,handleRes
                             </Grid>
                             <Grid item xs={3}>
                                 <b>   Date : </b>
-                                {purpose=="update"?<input type="text" value={hcv.approveDate} />:
-                                <TextField
-                                    id="date"
-                                    name="approveDate"
-                                    onChange={handleChange}
-                                    type="date"
-                                 
-                                    className={classes.textField}
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                />}
+                                {purpose == "update" ? <input type="text" value={hcv.approveDate} /> :
+                                    <TextField
+                                        id="date"
+                                        name="approveDate"
+                                        onChange={handleChange}
+                                        type="date"
+
+                                        className={classes.textField}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />}
                             </Grid>
                             <Grid item xs={3}>
                                 <b>  Sig : </b>
@@ -635,7 +635,7 @@ const HIVViralComp = ({purpose,hcv,handleChange,submitter,handleResult,handleRes
 
             </CardContent >
         </Card >
-     );
+    );
 }
- 
+
 export default HIVViralComp;

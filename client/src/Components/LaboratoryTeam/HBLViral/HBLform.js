@@ -48,7 +48,7 @@ const HBLform = (props) => {
     })
     useEffect(()=>{
         console.log(props.match)
-        axios.get(`http://localhost:4001/api/labRequest/hblViral/${props.match.params.RequestID}`)
+        axios.get(`http://localhost:4001/api/labRequest/hblViral`)
         .then(res=>{
                 console.log(res.data)
                 setHCV(res.data)
@@ -88,7 +88,7 @@ const HBLform = (props) => {
         e.preventDefault()
         console.log(hcv.result1)
         console.log(hcv.result2)
-            axios.put(`http://localhost:4001/api/labRequest/hblViral/${props.match.params.RequestID}`,{ 
+            axios.put(`http://localhost:4001/api/labRequest/hblViral`,{ 
                 result1:hcv.result1,
              result2:hcv.result2,       })
             .then(res => {
