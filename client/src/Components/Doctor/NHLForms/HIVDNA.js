@@ -6,10 +6,14 @@ import Grid from '@material-ui/core/Grid';
 import Checkbox from '@material-ui/core/Checkbox';
 import DSidebar from '../Dsidebar'
 import { makeStyles } from '@material-ui/core/styles';
+import Dsidebar from '../Dsidebar';
+import { Card, CardContent } from '@material-ui/core';
 const HIVDNA = () => {
-    return ( 
+    return (
       <div>
-
+        <Dsidebar/>
+            <div style={{ marginLeft: '200px', padding: '20px' }}>
+      <div>
            <Formik  
             initialValues={{FacultyName:"",SubZone:"",Zone:"",ChildName:"",ChildIdNo:"",AgeMonths:"",
             ChildDOB:"",Weight:"",MotherName:"",MotherId:"",MotherPhoneno:"",initial:false,repeat:false,
@@ -414,7 +418,8 @@ const HIVDNA = () => {
          )}
          </Formik>
       </div>
-            
+      </div>
+      </div>
      );
 }
  

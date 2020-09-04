@@ -64,7 +64,7 @@ const ChemShow = (props) => {
 
   }
   useEffect(() => {
-    axios.get(`http://localhost:4001/api/labRequest/chemistry/${props.match.params.RequestID}`)
+    axios.get(`http://localhost:4001/api/labRequest/chemistry`)
       .then(res => {
 
         setChemistry(res.data)

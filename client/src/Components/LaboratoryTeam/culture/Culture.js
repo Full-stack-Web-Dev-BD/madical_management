@@ -3,6 +3,7 @@ import HBLViralComp from '../../Doctor/NHLForms/HBLViralComp'
 import axios from 'axios'
 import ChildForm12 from '../../Doctor/NHLForms/childForm12'
 import Lsidebar from '../Lsidebar'
+import Dsidebar from '../../Doctor/Dsidebar';
 const Culture = (props) => {
     const [culture, setCulture] = useState({
         PatientUHID: "",
@@ -151,7 +152,7 @@ const Culture = (props) => {
     }
     return (
         <div>
-            <Lsidebar />
+            <Dsidebar />
             <div style={{ marginLeft: '220px' }}>
                 <div style={{ padding: '20px' }}>
                     <ChildForm12 culture={culture} handleChange={handleChange}

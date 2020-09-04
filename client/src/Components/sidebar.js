@@ -1,16 +1,10 @@
 import React, { useEffect } from 'react';
 import './css/Sidebar.css'
 import "bootstrap/dist/css/bootstrap.css";
-import List from '@material-ui/core/List'
 import Sideback from '../Image/sideback.jpg'
-import ListItem from '@material-ui/core/ListItem'
 import SideImg from '../Image/sideImage.jpeg'
-import ListItemText from '@material-ui/core/ListItemText'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Link, withRouter } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Navbar, Form, Nav, NavDropdown, Dropdown } from 'react-bootstrap';
-import { faUser, faCalendarWeek, faBell, faCommentAlt, faSignOutAlt, faTachometerAlt } from '@fortawesome/free-solid-svg-icons'
+import { Link, withRouter } from 'react-router-dom';
 const Sidebar = (props) => {
     useEffect(() => {
         const data = localStorage.getItem('userStore')
@@ -18,7 +12,6 @@ const Sidebar = (props) => {
             props.history.push('/');
         }
         else {
-
         }
     }, [])
     function logout(e) {

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import HIVViralComp from '../../Doctor/NHLForms/HIVViralComp'
 import axios from 'axios'
-import Lsidebar from '../Lsidebar'
+import sidebar from '../../sidebar';
+import Dsidebar from '../../Doctor/Dsidebar';
 const HBLform = (props) => {
     const [hcv, setHCV] = useState({
         PatientUHID: "",
@@ -95,7 +96,7 @@ const HBLform = (props) => {
     }
     return (
         <div>
-            <Lsidebar />
+            <Dsidebar />
             <div style={{ marginLeft: '220px' }}>
                 <div style={{ padding: '20px' }}>
                     <HIVViralComp hcv={hcv} handleChange={handleChange}

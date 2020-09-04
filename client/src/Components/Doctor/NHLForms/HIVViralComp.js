@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import Checkbox from '@material-ui/core/Checkbox';
 import DSidebar from '../Dsidebar'
 import axios from 'axios'
+import queryString from 'query-string'
 
 const useStyles = makeStyles({
     brdr: {
@@ -33,39 +34,42 @@ const useStyles = makeStyles({
     },
 });
 const HIVViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, handleResult1, initialChange, retrieve }) => {
+
+    const [patient, setPatient] = useState([{basic:{},contact: {},emergency:{}}])
+    useEffect(()=>{
+        let params=queryString.parse(window.location.search)
+        axios.get(`/get-single-patient/${params.UHID}`)
+        .then(res=>{
+            console.log(res.data)
+            setPatient(res.data)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    },[])
+    
     const classes = useStyles();
     return (
-
         <Card className={classes.root} variant="outlined" >
             <style>{`
-    
-    th,td{
-     border:1px solid black;
-    },
-    
-    #tdn:{
-        border:none;
-    }
-  `}</style>
+                    th,td{
+                    border:1px solid black;
+                    },
+                    
+                    #tdn:{
+                        border:none;
+                    }
+            `}</style>
             <CardContent>
-
                 <Typography variant="body2" component="p">
-
                     <div style={{ flexGrow: 1 }} >
-
                         <center>    <h5><b>Ministry of Health</b></h5>
                             <h5><b>National Health Laboratory</b></h5>
                             <h5><b>HIV VIRAL load Request Form</b></h5></center>
-
                     </div>
-
-
-
                     <div style={{ flexGrow: 1 }}>
                         <Grid container spacing={12}>
-
                             <Grid item xs={12} >
-
                                 <table className={classes.brdr} style={{ width: '100%', padding: '20px' }}>
                                     <b>1. IDENTIFICATION</b>
                                     <br></br>
@@ -73,22 +77,21 @@ const HIVViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                                     <tr>
                                         <div style={{ flexGrow: 1 }}>
                                             <Grid container spacing={1}>
-                                                <Grid item xs={3}>
+                                                {/* <Grid item xs={3}>
                                                     <div class="form-group col-md-4">
-
-                                                        <input type="text" onChange={initialChange} class="form-control" name="PatientUHID" required id="inputEmail4" placeholder="UHID" />
+                                                        <input type="text" onChange={initialChange} class="form-control" style={{ minWidth: '150px' }} name="PatientUHID" required id="inputEmail4" placeholder="UHID" />
                                                     </div>
                                                     <input class="btn btn-primary" type="button" value="Get Data" onClick={retrieve} />
-                                                </Grid>
+                                                </Grid> */}
                                                 <Grid item xs={6} >
                                                     <b> Patient Name:</b>
-
                                                     <TextField
                                                         name="firstName"
                                                         type="text"
                                                         value={hcv.firstName}
                                                         className={classes.textField}
                                                         onChange={handleChange}
+                                                        defaultValue={patient[0].basic.name}
                                                         InputLabelProps={{
                                                             shrink: true,
                                                         }}
@@ -106,12 +109,8 @@ const HIVViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                                                             shrink: true,
                                                         }}
                                                     />
-                                                </Grid>   </Grid>
-
-
-
-
-
+                                                </Grid>
+                                            </Grid>
                                             <Grid container spacing={3}>
                                                 <Grid item xs={4}>
                                                     <b> Date of Birth:</b>
