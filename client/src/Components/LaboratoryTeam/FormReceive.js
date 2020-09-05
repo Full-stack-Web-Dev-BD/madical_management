@@ -22,29 +22,14 @@ const FormReceive = (props) => {
 
   
   useEffect(() => {
-    var setarr = []
-    const chem = axios.get("http://localhost:4001/api/labRequest/chemistry");
-    const haem = axios.get("http://localhost:4001/api/labRequest/hematology")
-    const hcvViral = axios.get("http://localhost:4001/api/labRequest/hcvViral")
-    const hblViral = axios.get("http://localhost:4001/api/labRequest/hblViral")
-    const hivViral = axios.get("http://localhost:4001/api/labRequest/hivViral")
-    const TBReport = axios.get("http://localhost:4001/api/labRequest/TBReport")
-    const culture = axios.get("http://localhost:4001/api/labRequest/culture")
-    axios.all([chem, haem, hcvViral, hblViral, hivViral, TBReport, culture])
-      .then(axios.spread((...res) => {
-        var chem = res[0].data.filter(res => res.status === "pending")
-        var haem = res[1].data.filter(res => res.status === "pending")
-        var hcvViral = res[2].data.filter(res => res.status === "pending")
-        var hblViral = res[3].data.filter(res => res.status === "pending")
-        var hivViral = res[4].data.filter(res => res.status === "pending")
-        var TBReport = res[5].data.filter(res => res.status === "pending")
-        var culture = res[6].data.filter(res => res.status === "pending")
-        console.log(chem)
-        console.log(haem)
-        console.log(TBReport)
-        setData(chem.concat(haem, hcvViral, hblViral, hivViral, TBReport, culture))
-      }))
-      .catch(error => console.log(error))
+    axios.get('/get-all-request')
+    .then(res=>{
+       let filtered =res.data.filter(single=> single.status==='pending')
+       setData(filtered)
+    })
+    .catch(err=>{
+      console.log(err)
+    })
   }, [])
   
   
@@ -71,27 +56,27 @@ const FormReceive = (props) => {
   }))(TableRow);
 
   const Checkit = (data) => {
-    if (data.test === "Hematology") {
-      props.history.push('/testFill/' + data.RequestID)
+    if (data.type === "HIVViral") {
+      props.history.push(`/LHIVViral?for=submit&id=${data._id}`)
     }
-    else if (data.test === "Chemistry") {
-      props.history.push('/Chemlab/' + data.RequestID)
+    else if (data.type === "LabTbreport") {
+      props.history.push(`/LLabTbreport?for=submit&id=${data._id}`)
     }
-    else if (data.test === "HCVViral") {
+    else if (data.type === "Chemistry") {
+      props.history.push('/Chemlab')
+    }
+    else if (data.type === "HCVViral") {
       console.log(data.RequestID)
-      props.history.push('/HCVViralform/' + data.RequestID)
+      props.history.push('/HCVViralform')
     }
-    else if (data.test === "HBLViral") {
-      props.history.push('/HBLViralform/' + data.RequestID)
+    else if (data.type === "HBLViral") {
+      props.history.push('/HBLViralform')
     }
-    else if (data.test === "HIVViral") {
-      props.history.push('/HIVViralform/' + data.RequestID)
+    else if (data.type === "HIVViral") {
+      props.history.push('/HIVViralform')
     }
-    else if (data.test === "TBReport") {
-      props.history.push('/LabTbreport/' + data.RequestID)
-    }
-    else if (data.test === "culture and sensitivity") {
-      props.history.push('/Culture/' + data.RequestID)
+    else if (data.type === "culture and sensitivity") {
+      props.history.push('/Culture')
     }
   }
 
@@ -102,25 +87,19 @@ const FormReceive = (props) => {
           <TableHead>
             <TableRow>
               <StyledTableCell><b>Request ID</b></StyledTableCell>
-              <StyledTableCell align="center"><b> Date</b></ StyledTableCell>
               <StyledTableCell align="center"><b>UHID</b></StyledTableCell>
               <StyledTableCell align="center"><b>Patient Name</b> </StyledTableCell>
-              <StyledTableCell align="center"> <b>Department</b></StyledTableCell>
               <StyledTableCell align="center"><b>Test Type</b></StyledTableCell>
-              <StyledTableCell align="center"><b>Priority</b></StyledTableCell>
               <StyledTableCell align="center"><b>Check</b></StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {data.map(pat => (
               <StyledTableRow >
-                <StyledTableCell align="center">{pat.RequestID}</StyledTableCell>
-                <StyledTableCell align="center"> {pat.referralDate} </StyledTableCell>
-                <StyledTableCell align="center">  {pat.PatientUHID}</StyledTableCell>
-                <StyledTableCell align="center">  {pat.firstName}</StyledTableCell>
-                <StyledTableCell align="center">  {pat.department}</StyledTableCell>
-                <StyledTableCell align="center">  {pat.test}</StyledTableCell>
-                <StyledTableCell align="center">  {pat.priority}</StyledTableCell>
+                <StyledTableCell align="center">{pat.requester}</StyledTableCell>
+                <StyledTableCell align="center">  {pat.patient}</StyledTableCell>
+                <StyledTableCell align="center">  {pat.testInfo[0].firstName}</StyledTableCell>
+                <StyledTableCell align="center">  {pat.type}</StyledTableCell>
                 <StyledTableCell align="center"> <button class="btn btn-primary" onClick={() => Checkit(pat)}>  Check </button></StyledTableCell>
               </StyledTableRow>
             ))

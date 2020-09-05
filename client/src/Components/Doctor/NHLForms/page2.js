@@ -34,15 +34,29 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Page2({handleChange,handleChanges,data,submitter,retrieve,stat}) {
+export default function Page2({mode,handleChange,handleChanges,data,submitter,retrieve,stat}) {
     const classes = useStyles();
     const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
 
+
+    
+    
+    const BT=()=>{
+        if(mode==="view"){
+            return(
+                <button class="btn btn-primary" onClick={()=>{window.history.back()}}>Go Back</button>
+                )
+        }else {
+            return(
+            <button class="btn btn-primary" onClick={()=>{submitter()}}>Submit</button>
+            )
+        }
+    }
     return (
         <Grid container spacing={12} >
                         
         <Grid item xs={12} >
-        <form style={{marginTop:'30px'}}>
+        <div style={{marginTop:'30px'}}>
         <Card  variant="outlined" >
             <CardContent>
 
@@ -65,7 +79,7 @@ export default function Page2({handleChange,handleChanges,data,submitter,retriev
 
                     <div >
                         <Grid container xs={12} >
-                            <Grid item xs={5}>
+                            {/* <Grid item xs={5}>
                             <TextField    id="address"
                                     name="PatientUHID"
                                     value={data.PatientUHID}
@@ -74,12 +88,11 @@ export default function Page2({handleChange,handleChanges,data,submitter,retriev
                                     className={classes.textField}
                                 />
                                 <button class="btn btn-primary" onClick={retrieve} >Get Data</button>
-                            </Grid>
+                            </Grid> */}
                             <Grid item xs={4}>
                                 PATIENT NAME :
-                              
                                 <TextField
-                           name="firstName"
+                            name="firstName"
                             type="text"
                             value={data.firstName}
                             className={classes.textField}
@@ -599,16 +612,14 @@ export default function Page2({handleChange,handleChanges,data,submitter,retriev
 
                             </Grid>
                         </Grid>
-                        {stat === "done"? "":
-                        <button class="btn btn-primary" onClick={submitter}>Submit</button>
-                            }
+                        <BT/>
                     </div>
 
                 </Typography>
 
             </CardContent>
         </Card >
-        </form>
+        </div>
         </Grid></Grid>
     );
 }

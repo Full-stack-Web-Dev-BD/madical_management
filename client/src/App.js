@@ -108,14 +108,21 @@ const App = () => {
         <ReceptionistRoute path="/form15" component={Form15} />
 
         <ReceptionistRoute path="/ResultView" component={ResultView} />
-        <ReceptionistRoute path="/FormView" component={FormView} />
 
 
 
 
         {/* Lab */}
-        <LabTechRouter path="/LabManagement" component={Lhome} />
-        <LabTechRouter path="/FormView" component={FormView} />
+        {/* <LabTechRouter path="/LabManagement" component={Lhome} /> */}
+        <LabTechRouter path="/LabManagement" component={FormView} />
+        <LabTechRouter path="/LabFormView" component={FormView} />
+
+        <LabTechRouter path="/LHIVViral" component={HIVViral} />
+        <LabTechRouter path="/LLabTbreport" component={TBreport} />
+
+
+
+
       </Switch>
     </BrowserRouter>
   )

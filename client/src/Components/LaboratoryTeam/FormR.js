@@ -24,6 +24,8 @@ const FormR = () => {
     }
     return ( 
         <div>
+          <h3>Incomming Request </h3>
+          <hr/>
             <button  className={"btn " + (all
           ? "btn-primary"
           : "btn-light")} onClick={allData}>Pending</button>

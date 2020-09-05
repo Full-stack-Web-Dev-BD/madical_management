@@ -3,6 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios'
 import HIVViralComp from './HIVViralComp'
 import Dsidebar from '../Dsidebar';
+import queryString from 'query-string'
+import decoder from 'jwt-decode'
+import Lsidebar from '../../LaboratoryTeam/Lsidebar';
+
 const useStyles = makeStyles({
     brdr: {
         border: '1px solid black',
@@ -25,6 +29,8 @@ const useStyles = makeStyles({
 });
 
 export default function HIVViral(props) {
+    const [params, setParams] = useState({})
+    const [decoded, setDecoded] = useState({})
     const classes = useStyles();
     const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
     const [hcv, setHCV] = useState({
@@ -72,6 +78,43 @@ export default function HIVViral(props) {
         approveDate: null,
         approveSig: ""
     })
+
+
+    useEffect(() => {
+        let params = queryString.parse(window.location.search)
+        setDecoded(decoder(window.localStorage.getItem('userStore')))
+        setParams(params)
+        if (params.for === 'submit'||params.for==="view") {
+            axios.get(`/findTest/${params.id}`)
+                .then(res => {
+                    let getData = res.data.testInfo[0]
+                    console.log(getData)
+                    setHCV(getData)
+                    console.log('test ', res.data.testInfo[0])
+                })
+        } else {
+            axios.get(`/get-single-patient/${params.UHID}`)
+                .then(res => {
+                    console.log(res.data)
+                    let updateData = hcv
+
+                    if (res.data) {
+                        let updatedData = hcv
+                        updatedData.firstName = res.data[0].basic.name
+                        updatedData.nationalIdNumber = res.data[0].basic.nationalIdNumber
+                        updatedData.dateOfBirth = res.data[0].basic.date
+                        updatedData.villCity = res.data[0].contact.village
+                        updatedData.tele = res.data[0].contact.phoneNumber
+
+                        setHCV(updatedData)
+                    }
+
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+    }, [])
 
 
     const initialChange = (e) => {
@@ -137,53 +180,84 @@ export default function HIVViral(props) {
     }
     const submitter = (e) => {
         e.preventDefault()
-        console.log(hcv)
-        axios
-            .post("http://localhost:4001/api/labRequest/hivViral", {
-                PatientUHID: hcv.PatientUHID,
-                priority: hcv.priority,
-                department: hcv.department,
-                DoctorID: hcv.DoctorID,
-                firstName: hcv.firstName,
-                nationalIdNumber: hcv.nationalIdNumber,
-                dateOfBirth: hcv.dateOfBirth,
-                healthFacility: hcv.healthFacility,
-                zoba: hcv.healthFacility,
-                subZoba: hcv.subZoba,
-                villCity: hcv.villCity,
-                requestedBy: hcv.requestedBy,
-                tele: hcv.tele,
-                specimenDate: hcv.specimenDate,
-                NHLDate: hcv.NHLDate,
-                goodCondition: hcv.goodCondition,
-                inadequateCondition: hcv.inadequateCondition,
-                result1: hcv.result1,
-                result2: hcv.result2,
-                reportBy: hcv.reportBy,
-                referralDate: hcv.referralDate,
-                reportSig: hcv.reportSig,
-                approveBy: hcv.approveBy,
-                approveDate: hcv.approveDate,
-                approveSig: hcv.approveSig
-            })
+        let decoded = decoder(window.localStorage.getItem('userStore'))
+        let params = queryString.parse(window.location.search)
+        let testInfo = {
+            priority: hcv.priority,
+            department: hcv.department,
+            firstName: hcv.firstName,
+            nationalIdNumber: hcv.nationalIdNumber,
+            dateOfBirth: hcv.dateOfBirth,
+            healthFacility: hcv.healthFacility,
+            zoba: hcv.healthFacility,
+            subZoba: hcv.subZoba,
+            villCity: hcv.villCity,
+            requestedBy: hcv.requestedBy,
+            tele: hcv.tele,
+            specimenDate: hcv.specimenDate,
+            NHLDate: hcv.NHLDate,
+            goodCondition: hcv.goodCondition,
+            inadequateCondition: hcv.inadequateCondition,
+            result1: hcv.result1,
+            result2: hcv.result2,
+            reportBy: hcv.reportBy,
+            referralDate: hcv.referralDate,
+            reportSig: hcv.reportSig,
+            approveBy: hcv.approveBy,
+            approveDate: hcv.approveDate,
+            approveSig: hcv.approveSig
+        }
+
+
+
+        if (params.for === 'submit') {
+            axios.post(`/submitResult`, { id: params.id, testInfo: testInfo })
+            
             .then((res) => {
                 console.log("Successful")
-
-                props.history.push("/patientList")
-
-
-
+                window.location.href = '/LabManagement'
             })
             .catch((error) => {
                 console.log(error)
             })
+        } else {
+            axios.post("/make-request", {
+                type: params.test,
+                PatientUHID: params.UHID,
+                requester: decoded.email,
+                testInfo: testInfo
+            })
+                .then((res) => {
+                    console.log("Successful")
+                    window.location.href = '/make-request'
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+    }
+
+    const dR = () => {
+        if (params.for === "view") {
+            return (
+                <span></span>
+            )
+        } else if(params.for==="submit") {
+            return (
+                <Lsidebar/>
+            )
+        }else{
+            return(
+                <Dsidebar/>
+            )
+        }
     }
 
     return (
         <div>
-            <Dsidebar />
+            <dR/>
             <div style={{ marginLeft: '200px', padding: '20px' }}>
-                <HIVViralComp hcv={hcv} handleChange={handleChange}
+                <HIVViralComp hcv={hcv} mode={params.mode} handleChange={handleChange}
                     handleResult={handleResult} handleResult1={handleResult1}
                     submitter={submitter} initialChange={initialChange}
                     retrieve={retrieve} />

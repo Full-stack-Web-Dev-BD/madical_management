@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import Checkbox from '@material-ui/core/Checkbox';
 import DSidebar from '../Dsidebar'
 import axios from 'axios'
+import decoder from 'jwt-decode'
 import queryString from 'query-string'
 
 const useStyles = makeStyles({
@@ -33,29 +34,40 @@ const useStyles = makeStyles({
         marginBottom: 12,
     },
 });
-const HIVViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, handleResult1, initialChange, retrieve }) => {
+const HIVViralComp = ({mode, purpose, hcv, handleChange, submitter, handleResult, handleResult1, initialChange, retrieve }) => {
 
-    const [patient, setPatient] = useState([{basic:{},contact: {},emergency:{}}])
+    const [params, setParams] = useState({})
+    const [decoded, setDecoded] = useState({})
+    const classes = useStyles();
+
     useEffect(()=>{
         let params=queryString.parse(window.location.search)
-        axios.get(`/get-single-patient/${params.UHID}`)
-        .then(res=>{
-            console.log(res.data)
-            setPatient(res.data)
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+        setDecoded(decoder(window.localStorage.getItem('userStore')))
+        setParams(params)
     },[])
+       
     
-    const classes = useStyles();
+
+
+    
+    const BT=()=>{
+        if(mode==="view"){
+            return(
+                <button class="btn btn-primary" onClick={()=>{window.history.back()}}>Go Back</button>
+                )
+        }else {
+            return(
+            <button class="btn btn-primary" onClick={()=>{submitter()}}>Submit</button>
+            )
+        }
+    }
     return (
         <Card className={classes.root} variant="outlined" >
             <style>{`
                     th,td{
                     border:1px solid black;
                     },
-                    
+
                     #tdn:{
                         border:none;
                     }
@@ -71,7 +83,7 @@ const HIVViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                         <Grid container spacing={12}>
                             <Grid item xs={12} >
                                 <table className={classes.brdr} style={{ width: '100%', padding: '20px' }}>
-                                    <b>1. IDENTIFICATION</b>
+                                    <b >1. IDENTIFICATION </b>
                                     <br></br>
                                     <br></br>
                                     <tr>
@@ -88,10 +100,9 @@ const HIVViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                                                     <TextField
                                                         name="firstName"
                                                         type="text"
-                                                        value={hcv.firstName}
                                                         className={classes.textField}
                                                         onChange={handleChange}
-                                                        defaultValue={patient[0].basic.name}
+                                                        value={hcv.firstName}
                                                         InputLabelProps={{
                                                             shrink: true,
                                                         }}
@@ -119,7 +130,6 @@ const HIVViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                                                         name="dateOfBirth"
                                                         value={hcv.dateOfBirth}
                                                         disabled
-
                                                     />
                                                 </Grid>
 
@@ -128,7 +138,6 @@ const HIVViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
 
                                             </Grid>
                                             <Grid container spacing={1}>
-
                                                 <Grid item xs={3}>
                                                     <b>  Health Faclity : </b>
                                                     <TextField
@@ -185,8 +194,9 @@ const HIVViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                                                     <TextField
                                                         id="address"
                                                         name="requestedBy"
-                                                        value={hcv.requestedBy}
+                                                        value={decoded.email}
                                                         onChange={handleChange}
+                                                        disabled
                                                         type="text"
                                                         className={classes.textField}
                                                         InputProps={{ disableUnderline: true }}
@@ -343,7 +353,7 @@ const HIVViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                                             <TextField
                                                 id="address"
                                                 name="clientName"
-                                                value={hcv.result1['clientName']}
+                                                value={hcv.firstName}
                                                 type="text"
                                                 className={classes.textField}
                                                 InputProps={{ disableUnderline: true }}
@@ -354,7 +364,7 @@ const HIVViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                                                 id="address"
                                                 type="text"
                                                 name="clientNationalID"
-                                                value={hcv.result1['clientNationalID']}
+                                                value={hcv.nationalIdNumber}
                                                 className={classes.textField}
                                                 InputProps={{ disableUnderline: true }}
                                             />
@@ -437,7 +447,7 @@ const HIVViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                                                 id="address"
                                                 type="text"
                                                 name="clientName"
-                                                value={hcv.result2['clientName']}
+                                                value={hcv.firstName}
                                                 className={classes.textField}
                                                 InputProps={{ disableUnderline: true }}
                                             />
@@ -446,8 +456,8 @@ const HIVViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                                             <TextField
                                                 id="address"
                                                 type="text"
-                                                name="clientNationalID"
-                                                value={hcv.result2['clientNationalID']}
+                                                value={hcv.nationalIdNumber}
+                                                name="nationalIdNumber"
                                                 className={classes.textField}
                                                 InputProps={{ disableUnderline: true }}
                                             />
@@ -627,7 +637,7 @@ const HIVViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                             </Grid>
 
                         </Grid>
-                        <button class="btn btn-primary" onClick={submitter}>Submit</button>
+                        <BT/>
                     </div>
 
                 </Typography >

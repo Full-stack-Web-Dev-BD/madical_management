@@ -3,7 +3,10 @@ import Page2 from '../../Doctor/NHLForms/page2'
 import axios from 'axios'
 import Lsidebar from '../Lsidebar'
 import Dsidebar from '../../Doctor/Dsidebar';
+import queryString from 'query-string'
+import decoder from 'jwt-decode'
 const TBreport = (props) => {
+    const [params, setParams] = useState({})
     const [data, setData] = useState({
         PatientUHID: "", priority: "", department: "", DoctorID: "", nationalIdNumber: "", test: "", firstName: "", sex: "",
         eritreanID: "", dateOfBirth: "", address: "", labSerial: "", round: "", facultyName: "",
@@ -26,44 +29,87 @@ const TBreport = (props) => {
         console.log(data)
     }
     useEffect(() => {
-        console.log(props.match)
-        axios.get(`http://localhost:4001/api/labRequest/TBReport`)
-            .then(res => {
-                console.log(res.data)
-                setData(res.data)
+        let params = queryString.parse(window.location.search)
+        setParams(params)
+        if (params.for === 'submit') {
+            axios.get(`/findTest/${params.id}`)
+                .then(res => {
+                    let getData = res.data.testInfo[0]
+                    setData(getData)
+                    console.log('got data',getData)
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
+        } else {
+            axios.get(`/get-single-patient/${params.UHID}`)
+                .then(res => {
+                    console.log(res.data)
+                    if (res.data) {
+                        let updatedData = data
+                        data.firstName = res.data[0].basic.name
+                        data.sex = res.data[0].basic.gender
+                        data.address = res.data[0].contact.address
+                        data.dateOfBirth = res.data[0].basic.date
+                        setData(updatedData)
+                    }
 
-            })
-            .catch(error => console.log(error))
+                })
+                .catch(error => console.log(error))
+        }
     }, [])
     const retrieve = (e) => {
 
     }
 
     const submitter = (e) => {
-        console.log("SSSSSSSSSs")
+        let params = queryString.parse(window.location.search)
+        let decoded = decoder(window.localStorage.getItem('userStore'))
         e.preventDefault()
-        console.log(data)
-        axios
-            .put(`http://localhost:4001/api/labRequest/TBReport`, {
-
-                DST: data.DST,
-                result: data.result
-
-            })
-            .then((res) => {
-                console.log("Successful")
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+        if (params.for === 'submit'|| params.for==="view") {
+            axios.post(`/submitResult`, { id: params.id, testInfo: data })
+                .then((res) => {
+                    console.log("Successful")
+                    window.location.href = '/LabManagement'
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        } else {
+            axios
+                .post(`/make-request`, { testInfo: data, PatientUHID: params.UHID, type: params.test, requester: decoded.email })
+                .then((res) => {
+                    window.location.href = '/make-request'
+                    // console.log("Successful")
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+    }
+    
+    const dR = () => {
+        if (params.for === "view") {
+            return (
+                <span></span>
+            )
+        } else if(params.for==="submit") {
+            return (
+                <Lsidebar/>
+            )
+        }else{
+            return(
+                <Dsidebar/>
+            )
+        }
     }
 
     return (
         <div>
-            <Dsidebar />
+            <dR/>
             <div style={{ marginLeft: '220px' }}>
                 <div style={{ padding: '20px' }}>
-                    <Page2 data={data} handleChange={handleChange}
+                    <Page2 mode={params.mode} data={data} handleChange={handleChange}
                         handleChanges={handleChanges}
                         stat="update"
                         submitter={submitter} retrieve={retrieve} />

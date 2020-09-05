@@ -9,9 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios'
-
 import PatientRequestModal from '../Components/PatientRequestModal'
-
 import { useRecoilState } from 'recoil'
 import { allPatientState } from '../util/recoilState'
 import { Button } from '@material-ui/core';
@@ -46,7 +44,7 @@ const RequestForPatient = () => {
   useEffect(() => {
     axios.get('/get-patients')
       .then(res => {
-        let filterDoctors = res.data.filter(single => single.request == 0)
+        let filterDoctors = res.data.filter(single => single.request == !true||0)
         setFilteredPatient(filterDoctors)
       })
       .catch(err => {
@@ -89,7 +87,6 @@ const RequestForPatient = () => {
             </TableBody>
           </Table>
         </TableContainer>
-
         {
           filteredPatient.length < 1 ?
             <h3 className="text-center text-info" style={{ marginTop: '140px' }}> Empty</h3> : ''

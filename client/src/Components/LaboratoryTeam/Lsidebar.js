@@ -31,14 +31,12 @@ const Lsidebar = (props) => {
     setDisplay(!display)
   }
   return (
-
     <div class="mainDashboard " style={{ backgroundImage: `url(${Sideback})` }}>
       <div style={{ backgroundColor: "#8C8CB6", height: "80px", borderBottom: "1px solid white" }}>
         <h5 class="headDashboard">National Laboratory</h5>
       </div>
       <ul class="ulDashboard ">
-        <li><Link id="word"> Dashboard</Link></li>
-        <li><Link to="/FormView" id="word"> CheckRequest</Link></li>
+        <li><Link to="/LabManagement" id="word"> Dashboard</Link></li>
         <li><a href="" id="word" onClick={()=>{logout()}}> Logout</a></li>
       </ul>
     </div>

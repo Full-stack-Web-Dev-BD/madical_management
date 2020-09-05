@@ -14,6 +14,10 @@ const staffController=require('../controller/staffController')
     staffRoute.get('/get-all-invoice',staffController.getAllInvoice)
     staffRoute.post('/make-request',staffController.makeRequest)
     staffRoute.post('/do-accept/:id',staffController.doAccept)
+    staffRoute.get('/get-all-request',staffController.getAllRequest)
+    staffRoute.get('/findTest/:id',staffController.findTest)
+    staffRoute.post('/submitResult',staffController.submitResult)
+    
 
 
 module.exports=staffRoute

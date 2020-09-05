@@ -16,6 +16,7 @@ import { useRecoilState } from 'recoil'
 import { allPatientState } from '../util/recoilState'
 import decoder from 'jwt-decode'
 import { Button } from '@material-ui/core';
+import FormC from './LaboratoryTeam/FormC';
 
 
 const SeeResult = () => {
@@ -64,35 +65,7 @@ const SeeResult = () => {
           <h2>Make A Request</h2>
           <p onClick={() => { console.log(filteredPatient, getAllPatientState) }}> (Only Avilable Patient Included in Table)</p>
         </div>
-        <TableContainer component={Paper}>
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>UHID</StyledTableCell>
-                <StyledTableCell align="center"> Name</ StyledTableCell>
-                <StyledTableCell align="center">Gender</StyledTableCell>
-                <StyledTableCell align="center">BloodGroup </StyledTableCell>
-                <StyledTableCell align="center"> Date of Birth</StyledTableCell>
-                <StyledTableCell align="center">Status</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {filteredPatient.map(pat => (
-                <StyledTableRow >
-                  <TableCell scope="row">
-                    {pat.UHID}
-                  </TableCell>
-                  <StyledTableCell align="center">{pat.patientInfo[0].basic.name}</StyledTableCell>
-                  <StyledTableCell align="center"> {pat.patientInfo[0].basic.gender}  </StyledTableCell>
-                  <StyledTableCell align="center">  {pat.patientInfo[0].basic.bloodGroup}</StyledTableCell>
-                  <StyledTableCell align="center">  {pat.patientInfo[0].basic.date}</StyledTableCell>
-                  <StyledTableCell align="center"> {pat.accept? <Button  variant="outlined" color="primary" > Accepted </Button>:<Button  variant="outlined" color="secondary" >Pending</Button>} </StyledTableCell>
-                </StyledTableRow>
-              ))
-              }
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <FormC/>
         {
           filteredPatient.length < 1 ?
             <h3 className="text-center text-info" style={{ marginTop: '140px' }}> Empty</h3> : ''
