@@ -73,13 +73,13 @@ export default function HCVViralComp({ purpose, hcv, handleChange, submitter, ha
                                     <tr>
                                         <div style={{ flexGrow: 1 }}>
                                             <Grid container spacing={1}>
-                                                <Grid item xs={3}>
+                                                {/* <Grid item xs={3}>
                                                     <div class="form-group col-md-4">
 
                                                         <input type="text" onChange={initialChange} class="form-control" name="PatientUHID" required id="inputEmail4" placeholder="UHID" />
                                                     </div>
                                                     <input class="btn btn-primary" type="button" value="Get Data" onClick={retrieve} />
-                                                </Grid>
+                                                </Grid> */}
                                                 <Grid item xs={6} >
                                                     <b> Patient Name:</b>
 

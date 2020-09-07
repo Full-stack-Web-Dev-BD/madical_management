@@ -54,7 +54,7 @@ export default function PatientRequestModal({ props, s }) {
             window.location.href = `/HIVViral?test=${test}&UHID=${s.UHID}`
         }
         else if (test === "LabTbreport") {
-            window.location.href = `/LabTbreport?test=${test}&UHID=${s.UHID}`
+            window.location.href = `/Tbreport?test=${test}&UHID=${s.UHID}`
         }
         else if (test === "Culture") {
             window.location.href = `/Culture?test=${test}&UHID=${s.UHID}`

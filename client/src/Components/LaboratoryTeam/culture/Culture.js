@@ -4,7 +4,13 @@ import axios from 'axios'
 import ChildForm12 from '../../Doctor/NHLForms/childForm12'
 import Lsidebar from '../Lsidebar'
 import Dsidebar from '../../Doctor/Dsidebar';
+import queryString from 'query-string'
+import decoder from 'jwt-decode'
+
 const Culture = (props) => {
+    const [params, setParams] = useState({})
+    const [decoded, setDecoded] = useState({})
+    
     const [culture, setCulture] = useState({
         PatientUHID: "",
         firstName: "",
@@ -67,17 +73,39 @@ const Culture = (props) => {
         DoctorID: "",
         dateOfBirth: null
     })
+    
     useEffect(() => {
-        console.log(props.match)
-        axios.get(`http://localhost:4001/api/labRequest/culture`)
-            .then(res => {
-                console.log(res.data)
-                setCulture(res.data)
-
-            })
-            .catch(error => console.log(error))
+        let params = queryString.parse(window.location.search)
+        setDecoded(decoder(window.localStorage.getItem('userStore')))
+        setParams(params)
+        if (params.for === 'submit'||params.for==="view") {
+            axios.get(`/findTest/${params.id}`)
+                .then(res => {
+                    let getData = res.data.testInfo[0]
+                    setCulture(getData)
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
+        } else {
+            axios.get(`/get-single-patient/${params.UHID}`)
+                .then(res => {
+                    console.log(res.data)
+                    if (res.data) {
+                        let updatedData = culture
+                        updatedData.firstName = res.data[0].basic.name
+                        updatedData.nationalIdNumber = res.data[0].basic.nationalIdNumber
+                        updatedData.dateOfBirth = res.data[0].basic.date
+                        updatedData.villCity = res.data[0].contact.village
+                        updatedData.sex = res.data[0].basic.gender
+                        setCulture(updatedData)
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
     }, [])
-
     const handleChange = (e) => {
         var copy = { ...culture }
         copy[e.currentTarget.name] = e.currentTarget.value
@@ -93,69 +121,64 @@ const Culture = (props) => {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        // e.preventDefault()
 
-        axios
-            .put(`http://localhost:4001/api/labRequest/culture`, {
-
-                isolate1: culture.isolate1,
-                isolate2: culture.isolate2,
-                isolate: culture.isolate,
-                blnk1: culture.blnk1,
-                blnk2: culture.blnk2,
-                blnk3: culture.blnk3,
-                blnk4: culture.blnk4,
-                blnk5: culture.blnk5,
-                blnk6: culture.blnk6,
-                blnk7: culture.blnk7,
-                blnk8: culture.blnk8,
-                blnk9: culture.blnk9,
-                blnk10: culture.blnk10,
-                blnk11: culture.blnk11,
-                blnk12: culture.blnk12,
-                blnk13: culture.blnk13,
-                blnk14: culture.blnk14,
-                blnk15: culture.blnk15,
-                blnk16: culture.blnk16,
-                blnk17: culture.blnk17,
-                blnk18: culture.blnk18,
-                blnk19: culture.blnk19,
-                blnk20: culture.blnk20,
-                CI: culture.CI,
-                CH1: culture.CH1,
-                CO: culture.CO,
-                CL: culture.CL,
-                EY: culture.EY,
-                GE: culture.GE,
-                OX: culture.OX,
-                NI: culture.NI,
-                PN: culture.PN,
-                VA: culture.VA,
-                blnk21: culture.blnk21,
-                blnk22: culture.blnk22,
-                blnk23: culture.blnk23,
-                blnk24: culture.blnk24,
-                CH2: culture.CH2,
+        
+        let decoded = decoder(window.localStorage.getItem('userStore'))
+        let params = queryString.parse(window.location.search)
+        let testInfo =culture
 
 
 
-            })
+        if (params.for === 'submit') {
+            axios.post(`/submitResult`, { id: params.id, testInfo: testInfo })
+            
             .then((res) => {
-
-                this.props.history.push("/FormView")
-
-
+                console.log("Successful")
+                window.location.href = '/LabManagement'
             })
             .catch((error) => {
                 console.log(error)
             })
+        } else {
+            axios.post("/make-request", {
+                type: params.test,
+                PatientUHID: params.UHID,
+                requester: decoded.email,
+                testInfo: testInfo
+            })
+                .then((res) => {
+                    console.log("Successful")
+                    window.location.href = '/make-request'
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
     }
+    
+    const DR = () => {
+        if (params.for === "view") {
+            return (
+                <span></span>
+            )
+        } else if(params.for==="submit") {
+            return (
+                <Lsidebar/>
+            )
+        }else{
+            return(
+                <Dsidebar/>
+            )
+        }
+    }
+
     return (
         <div>
-            <Dsidebar />
+            <DR/>
             <div style={{ marginLeft: '220px' }}>
                 <div style={{ padding: '20px' }}>
-                    <ChildForm12 culture={culture} handleChange={handleChange}
+                    <ChildForm12 mode={params.for} culture={culture} handleChange={handleChange}
                         initialChange={initialChange} handleSubmit={handleSubmit} edit="partial" />
                 </div>
             </div>

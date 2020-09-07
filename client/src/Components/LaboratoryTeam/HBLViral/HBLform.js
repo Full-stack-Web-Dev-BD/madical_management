@@ -63,7 +63,7 @@ const HBLform = (props) => {
     }
     const handleChange = (e) => {
 
-
+// this is empty function   he did not comp
     }
     const handleResult = (e) => {
         const data = { ...hcv }

@@ -106,6 +106,13 @@ export default function HIVViral(props) {
                         updatedData.villCity = res.data[0].contact.village
                         updatedData.tele = res.data[0].contact.phoneNumber
 
+                        updatedData.result1.sex = res.data[0].basic.gender
+                        updatedData.result2.sex = res.data[0].basic.gender
+                        updatedData.result1.clientName = res.data[0].basic.name
+                        updatedData.result2.clientName= res.data[0].basic.name
+                        updatedData.result1.clientNationalID =  res.data[0].basic.nationalIdNumber
+                        updatedData.result2.clientNationalID =  res.data[0].basic.nationalIdNumber
+
                         setHCV(updatedData)
                     }
 
@@ -179,7 +186,7 @@ export default function HIVViral(props) {
 
     }
     const submitter = (e) => {
-        e.preventDefault()
+        // e.preventDefault()
         let decoded = decoder(window.localStorage.getItem('userStore'))
         let params = queryString.parse(window.location.search)
         let testInfo = {
@@ -237,7 +244,7 @@ export default function HIVViral(props) {
         }
     }
 
-    const dR = () => {
+    const DR = () => {
         if (params.for === "view") {
             return (
                 <span></span>
@@ -255,7 +262,7 @@ export default function HIVViral(props) {
 
     return (
         <div>
-            <dR/>
+            <DR/>
             <div style={{ marginLeft: '200px', padding: '20px' }}>
                 <HIVViralComp hcv={hcv} mode={params.mode} handleChange={handleChange}
                     handleResult={handleResult} handleResult1={handleResult1}

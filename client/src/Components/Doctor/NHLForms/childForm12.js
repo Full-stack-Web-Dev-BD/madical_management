@@ -7,13 +7,26 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios'
-const ChildForm12 = ({ culture, retrieve, handleChange, handleSubmit, initialChange }) => {
+const ChildForm12 = ({mode, culture, retrieve, handleChange, handleSubmit, initialChange }) => {
+
+    
+    const BT=()=>{
+        if(mode==="view"){
+            return(
+                <button class="btn btn-primary" onClick={()=>{window.history.back()}}>Go Back</button>
+                )
+        }else {
+            return(
+            <button class="btn btn-primary" onClick={()=>{handleSubmit()}}>Submit</button>
+            )
+        }
+    }
     return (
 
         <Card variant="outlined" style={{ padding: '20px' }} >
             <style>{`th,td{border:1px solid black;},#tdn:{border:none;}`}</style>
             <CardContent>
-                <form onSubmit={handleSubmit}>
+                <div>
                     <Grid container spacing={1}>
                         <Grid item xs={4}>
                         </Grid>
@@ -33,13 +46,13 @@ const ChildForm12 = ({ culture, retrieve, handleChange, handleSubmit, initialCha
                     <br></br>
                     <div style={{ flexGrow: 1 }}>
                         <Grid container spacing={1}>
-                            <Grid item xs={3}> <div class="form-row" style={{ paddingTop: '20px' }}>
+                            {/* <Grid item xs={3}> <div class="form-row" style={{ paddingTop: '20px' }}>
                                 <div class="form-group col-md-4">
                                     <input type="text" onChange={initialChange} class="form-control" name="PatientUHID" required id="inputEmail4" placeholder="UHID" />
                                 </div>
                                 <input class="btn btn-primary" type="button" value="Get Data" onClick={retrieve} />
                             </div>
-                            </Grid>
+                            </Grid> */}
                             <Grid item xs={3}>
                                 <b>  PATIENT NAME : </b>
                                 <TextField
@@ -964,10 +977,10 @@ const ChildForm12 = ({ culture, retrieve, handleChange, handleSubmit, initialCha
                                     style={{ width: '50%' }}
                                 />
                             </Grid>
-                            <Button color="primary" type="submit"> Submit </Button>
                         </Grid>
                     </div>
-                </form>
+                    <BT/>
+                </div>
 
             </CardContent >
         </Card >

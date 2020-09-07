@@ -62,8 +62,8 @@ const SeeResult = () => {
       <Sidebar />
       <div style={{ paddingLeft: '220px', paddingTop: '30px' }}>
         <div class="form-group col-md-12">
-          <h2>Make A Request</h2>
-          <p onClick={() => { console.log(filteredPatient, getAllPatientState) }}> (Only Avilable Patient Included in Table)</p>
+          <h2>View Result</h2>
+          <p onClick={() => { console.log(filteredPatient, getAllPatientState) }}> (Only submitted result Included in Table)</p>
         </div>
         <FormC/>
         {

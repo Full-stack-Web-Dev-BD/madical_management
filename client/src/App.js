@@ -86,22 +86,27 @@ const App = () => {
         <ReceptionistRoute path="/HIVViral" component={HIVViral} />
         <ReceptionistRoute path="/LabTbreport" component={TBreport} />
         <ReceptionistRoute path="/Culture" component={Culture} />
+
+        <ReceptionistRoute path="/Chemlab" component={ChemLay} />
+        <ReceptionistRoute path="/HBVViral" component={HBVViral} />
+
+        
+        
+
         <ReceptionistRoute path="/HCVViralvew" component={HCVViralview} />
-        <ReceptionistRoute path="/Tbreport" component={Tbreport} />
+        <ReceptionistRoute path="/Tbreport" component={TBreport} />
         <ReceptionistRoute path="/HBLViralview" component={HBLViralview} />
         <ReceptionistRoute path="/HCVViralform" component={HCVForm} />
-        <ReceptionistRoute path="/Chemlab" component={ChemLay} />
         <ReceptionistRoute path="/Hivvirals" component={HivVirals} />
         <ReceptionistRoute path="/Chemshow" component={ChemShow} />
         <ReceptionistRoute path="/HBLViralform" component={HBLform} />
         <ReceptionistRoute path="/HIVViralform" component={HIVForm} />
         <ReceptionistRoute path="/HivDna" component={HIVDNA} />
-        <ReceptionistRoute path="/HBVViral" component={HBVViral} />
 
         <ReceptionistRoute path="/Viewdata" component={Viewdata} />
         <ReceptionistRoute path="/Syphlis" component={Syphlis} />
 
-        
+
         <ReceptionistRoute path="/form12" component={Form12} />
         <ReceptionistRoute path="/form13" component={Form13} />
         <ReceptionistRoute path="/form14" component={Form14} />
@@ -111,6 +116,13 @@ const App = () => {
 
 
 
+        {/* view */}
+
+
+        <Route path="/view-LHIVViral" component={HIVViral} />
+        <Route path="/view-LLabTbreport" component={TBreport} />
+        <Route path="/view-LCulture" component={Culture} />
+
 
         {/* Lab */}
         {/* <LabTechRouter path="/LabManagement" component={Lhome} /> */}
@@ -119,6 +131,8 @@ const App = () => {
 
         <LabTechRouter path="/LHIVViral" component={HIVViral} />
         <LabTechRouter path="/LLabTbreport" component={TBreport} />
+        <LabTechRouter path="/LCulture" component={Culture} />
+        <LabTechRouter path="/LHCVViralvew" component={HCVViralview} />
 
 
 

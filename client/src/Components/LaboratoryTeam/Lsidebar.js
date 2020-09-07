@@ -37,7 +37,7 @@ const Lsidebar = (props) => {
       </div>
       <ul class="ulDashboard ">
         <li><Link to="/LabManagement" id="word"> Dashboard</Link></li>
-        <li><a href="" id="word" onClick={()=>{logout()}}> Logout</a></li>
+        <li><a href="" id="word" onClick={logout}> Logout</a></li>
       </ul>
     </div>
   );

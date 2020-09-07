@@ -65,7 +65,6 @@ const TBreport = (props) => {
     const submitter = (e) => {
         let params = queryString.parse(window.location.search)
         let decoded = decoder(window.localStorage.getItem('userStore'))
-        e.preventDefault()
         if (params.for === 'submit'|| params.for==="view") {
             axios.post(`/submitResult`, { id: params.id, testInfo: data })
                 .then((res) => {
@@ -88,7 +87,7 @@ const TBreport = (props) => {
         }
     }
     
-    const dR = () => {
+    const DR = () => {
         if (params.for === "view") {
             return (
                 <span></span>
@@ -106,7 +105,7 @@ const TBreport = (props) => {
 
     return (
         <div>
-            <dR/>
+            <DR/>
             <div style={{ marginLeft: '220px' }}>
                 <div style={{ padding: '20px' }}>
                     <Page2 mode={params.mode} data={data} handleChange={handleChange}

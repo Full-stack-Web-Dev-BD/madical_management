@@ -62,8 +62,8 @@ const FormReceive = (props) => {
     else if (data.type === "LabTbreport") {
       props.history.push(`/LLabTbreport?for=submit&id=${data._id}`)
     }
-    else if (data.type === "Chemistry") {
-      props.history.push('/Chemlab')
+    else if (data.type === "Culture") {
+      props.history.push(`/LCulture?for=submit&id=${data._id}`)
     }
     else if (data.type === "HCVViral") {
       console.log(data.RequestID)

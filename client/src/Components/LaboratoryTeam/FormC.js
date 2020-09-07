@@ -57,13 +57,13 @@ const FormReceive = (props) => {
 
   const Checkit = (data) => {
     if (data.type === "HIVViral") {
-      props.history.push(`/LHIVViral?for=view&mode=view&id=${data._id}`)
+      props.history.push(`/view-LHIVViral?for=view&mode=view&id=${data._id}`)
     }
     else if (data.type === "LabTbreport") {
-      props.history.push(`/LLabTbreport?for=view&mode=view&id=${data._id}`)
+      props.history.push(`/view-LLabTbreport?for=view&mode=view&id=${data._id}`)
     }
-    else if (data.type === "Chemistry") {
-      props.history.push('/Chemlab')
+    else if (data.type === "Culture") {
+      props.history.push(`/view-LCulture?for=view&mode=view&id=${data._id}`)
     }
     else if (data.type === "HCVViral") {
       console.log(data.RequestID)
