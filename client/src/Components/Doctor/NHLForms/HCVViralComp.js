@@ -32,8 +32,22 @@ const useStyles = makeStyles({
     },
 });
 
-export default function HCVViralComp({ purpose, hcv, handleChange, submitter, handleResult, handleResult1, initialChange, retrieve }) {
+export default function HCVViralComp({ mode, hcv, handleChange, submitter, handleResult, handleResult1, initialChange, retrieve }) {
     const classes = useStyles();
+
+    const BT = () => {
+        if (mode === "view") {
+            return (
+                <button class="btn btn-primary" onClick={() => { window.history.back() }}>Go Back</button>
+            )
+        } else {
+            return (
+                <button class="btn btn-primary" onClick={() => { submitter() }}>Submit</button>
+            )
+        }
+    }
+
+
     return (
 
         <Card className={classes.root} variant="outlined" >
@@ -106,12 +120,8 @@ export default function HCVViralComp({ purpose, hcv, handleChange, submitter, ha
                                                             shrink: true,
                                                         }}
                                                     />
-                                                </Grid>   </Grid>
-
-
-
-
-
+                                                </Grid>
+                                            </Grid>
                                             <Grid container spacing={3}>
                                                 <Grid item xs={4}>
                                                     <b> Date of Birth:</b>
@@ -120,13 +130,8 @@ export default function HCVViralComp({ purpose, hcv, handleChange, submitter, ha
                                                         name="dateOfBirth"
                                                         value={hcv.dateOfBirth}
                                                         disabled
-
                                                     />
                                                 </Grid>
-
-
-
-
                                             </Grid>
                                             <Grid container spacing={1}>
 
@@ -220,34 +225,29 @@ export default function HCVViralComp({ purpose, hcv, handleChange, submitter, ha
 
                                                 <Grid item xs={4}>
                                                     <b>  Date of Specimen collection : </b>
-                                                    {purpose == "update" ? <input type="text" value={hcv.specimenDate} /> :
-                                                        <TextField
-                                                            id="date"
-                                                            name="specimenDate"
-
-                                                            type="date"
-                                                            onChange={handleChange}
-
-                                                            className={classes.textField}
-                                                            InputLabelProps={{
-                                                                shrink: true,
-                                                            }}
-                                                        />}
+                                                    <TextField
+                                                        id="date"
+                                                        name="specimenDate"
+                                                        type="date"
+                                                        onChange={handleChange}
+                                                        className={classes.textField}
+                                                        InputLabelProps={{
+                                                            shrink: true,
+                                                        }}
+                                                    />
                                                 </Grid>
                                                 <Grid item xs={4}>
                                                     <b>   Date Sent to NHL : </b>
-                                                    {purpose == "update" ? <input type="text" value={hcv.NHLDate} /> :
-                                                        <TextField
-                                                            id="date"
-                                                            name="NHLDate"
-                                                            onChange={handleChange}
-                                                            type="date"
-
-                                                            className={classes.textField}
-                                                            InputLabelProps={{
-                                                                shrink: true,
-                                                            }}
-                                                        />}
+                                                    <TextField
+                                                        id="date"
+                                                        name="NHLDate"
+                                                        onChange={handleChange}
+                                                        type="date"
+                                                        className={classes.textField}
+                                                        InputLabelProps={{
+                                                            shrink: true,
+                                                        }}
+                                                    />
                                                 </Grid>
                                             </Grid>
                                         </div>
@@ -552,18 +552,17 @@ export default function HCVViralComp({ purpose, hcv, handleChange, submitter, ha
                             </Grid>
                             <Grid item xs={3}>
                                 <b>   Date : </b>
-                                {purpose == "update" ? <input type="text" value={hcv.referralDate} /> :
-                                    <TextField
-                                        id="date"
-                                        name="referralDate"
-                                        type="date"
+                                <TextField
+                                    id="date"
+                                    name="referralDate"
+                                    type="date"
 
-                                        onChange={handleChange}
-                                        className={classes.textField}
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                    />}
+                                    onChange={handleChange}
+                                    className={classes.textField}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                />
                             </Grid>
                             <Grid item xs={3}>
                                 <b>  Sig : </b>
@@ -599,18 +598,17 @@ export default function HCVViralComp({ purpose, hcv, handleChange, submitter, ha
                             </Grid>
                             <Grid item xs={3}>
                                 <b>   Date : </b>
-                                {purpose == "update" ? <input type="text" value={hcv.approveDate} /> :
-                                    <TextField
-                                        id="date"
-                                        name="approveDate"
-                                        onChange={handleChange}
-                                        type="date"
+                                <TextField
+                                    id="date"
+                                    name="approveDate"
+                                    onChange={handleChange}
+                                    type="date"
 
-                                        className={classes.textField}
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                    />}
+                                    className={classes.textField}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                />
                             </Grid>
                             <Grid item xs={3}>
                                 <b>  Sig : </b>
@@ -628,7 +626,8 @@ export default function HCVViralComp({ purpose, hcv, handleChange, submitter, ha
                             </Grid>
 
                         </Grid>
-                        <button class="btn btn-primary" onClick={submitter}>Submit</button>
+
+                        <BT />
                     </div>
 
                 </Typography >

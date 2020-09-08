@@ -70,6 +70,24 @@ const App = () => {
         <AdminRoute path="/AddStaff" component={Astaff} />
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         {/* Receptionist */}
 
         <ReceptionistRoute path="/ReceptionistDashboard" component={Dashboard} />
@@ -83,26 +101,27 @@ const App = () => {
         <ReceptionistRoute path="/make-request" component={RequestForPatient} />
         <ReceptionistRoute path="/view-result" component={SeeResult} />
 
+
+
         <ReceptionistRoute path="/HIVViral" component={HIVViral} />
         <ReceptionistRoute path="/LabTbreport" component={TBreport} />
         <ReceptionistRoute path="/Culture" component={Culture} />
-
-        <ReceptionistRoute path="/Chemlab" component={ChemLay} />
-        <ReceptionistRoute path="/HBVViral" component={HBVViral} />
-
-        
-        
-
         <ReceptionistRoute path="/HCVViralvew" component={HCVViralview} />
-        <ReceptionistRoute path="/Tbreport" component={TBreport} />
+        <ReceptionistRoute path="/Tbreport" component={Tbreport} />
         <ReceptionistRoute path="/HBLViralview" component={HBLViralview} />
         <ReceptionistRoute path="/HCVViralform" component={HCVForm} />
+        <ReceptionistRoute path="/Chemlab" component={ChemLay} />
         <ReceptionistRoute path="/Hivvirals" component={HivVirals} />
         <ReceptionistRoute path="/Chemshow" component={ChemShow} />
+
+
+
+
         <ReceptionistRoute path="/HBLViralform" component={HBLform} />
         <ReceptionistRoute path="/HIVViralform" component={HIVForm} />
         <ReceptionistRoute path="/HivDna" component={HIVDNA} />
 
+        <ReceptionistRoute path="/HBVViral" component={HBVViral} />
         <ReceptionistRoute path="/Viewdata" component={Viewdata} />
         <ReceptionistRoute path="/Syphlis" component={Syphlis} />
 
@@ -111,7 +130,6 @@ const App = () => {
         <ReceptionistRoute path="/form13" component={Form13} />
         <ReceptionistRoute path="/form14" component={Form14} />
         <ReceptionistRoute path="/form15" component={Form15} />
-
         <ReceptionistRoute path="/ResultView" component={ResultView} />
 
 
@@ -122,6 +140,39 @@ const App = () => {
         <Route path="/view-LHIVViral" component={HIVViral} />
         <Route path="/view-LLabTbreport" component={TBreport} />
         <Route path="/view-LCulture" component={Culture} />
+        <Route path="/view-HCVViralvew" component={HCVViralview} />
+        <Route path="/view-Tbreport" component={Tbreport} />
+        <Route path="/view-HBLViralview" component={HBLViralview} />
+        <Route path="/view-HCVViralform" component={HCVForm} />
+        <Route path="/view-Chemlab" component={ChemLay} />
+        <Route path="/view-Hivvirals" component={HivVirals} />
+        <Route path="/view-Chemshow" component={ChemShow} />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         {/* Lab */}
@@ -133,9 +184,12 @@ const App = () => {
         <LabTechRouter path="/LLabTbreport" component={TBreport} />
         <LabTechRouter path="/LCulture" component={Culture} />
         <LabTechRouter path="/LHCVViralvew" component={HCVViralview} />
-
-
-
+        <LabTechRouter path="/LTbreport" component={Tbreport} />
+        <LabTechRouter path="/LHBLViralview" component={HBLViralview} />
+        <LabTechRouter path="/LHCVViralform" component={HCVForm} />
+        <LabTechRouter path="/LChemlab" component={ChemLay} />
+        <LabTechRouter path="/LHivvirals" component={HivVirals} />
+        <LabTechRouter path="/LChemshow" component={ChemShow} />
 
       </Switch>
     </BrowserRouter>

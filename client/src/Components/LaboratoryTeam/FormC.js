@@ -65,20 +65,28 @@ const FormReceive = (props) => {
     else if (data.type === "Culture") {
       props.history.push(`/view-LCulture?for=view&mode=view&id=${data._id}`)
     }
-    else if (data.type === "HCVViral") {
-      console.log(data.RequestID)
-      props.history.push('/HCVViralform')
+    else if (data.type === "HCVViralvew") {
+      props.history.push(`/view-HCVViralvew?for=view&mode=view&id=${data._id}`)
     }
-    else if (data.type === "HBLViral") {
-      props.history.push('/HBLViralform')
+    else if (data.type === "Tbreport") {
+      props.history.push(`/view-Tbreport?for=view&mode=view&id=${data._id}`)
     }
-    else if (data.type === "HIVViral") {
-      props.history.push('/HIVViralform')
+    else if (data.type === "HBLViralview") {
+      props.history.push(`/view-HBLViralview?for=view&mode=view&id=${data._id}`)
     }
-    else if (data.type === "culture and sensitivity") {
-      props.history.push('/Culture')
+    else if (data.type === "HCVViralform") {
+      props.history.push(`/view-HCVViralform?for=view&mode=view&id=${data._id}`)
+    }
+    else if (data.type === "Chemlab") {
+      props.history.push(`/view-Chemlab?for=view&mode=view&id=${data._id}`)
+    }
+    else if (data.type === "Chemshow") {
+      props.history.push(`/view-Chemshow?for=view&mode=view&id=${data._id}`)
     }
   }
+  
+  
+  
 
   return (
     <div>
@@ -90,7 +98,7 @@ const FormReceive = (props) => {
               <StyledTableCell align="center"><b>UHID</b></StyledTableCell>
               <StyledTableCell align="center"><b>Patient Name</b> </StyledTableCell>
               <StyledTableCell align="center"><b>Test Type</b></StyledTableCell>
-              <StyledTableCell align="center"><b>Check</b></StyledTableCell>
+              <StyledTableCell align="center"><b>View Details</b></StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>

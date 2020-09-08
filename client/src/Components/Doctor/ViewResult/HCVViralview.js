@@ -60,14 +60,14 @@ const HCVViralview = (props) => {
         approveDate: "",
         approveSig: ""
     })
-    
-    
+
+
 
     useEffect(() => {
         let params = queryString.parse(window.location.search)
         setDecoded(decoder(window.localStorage.getItem('userStore')))
         setParams(params)
-        if (params.for === 'submit'||params.for==="view") {
+        if (params.for === 'submit' || params.for === "view") {
             axios.get(`/findTest/${params.id}`)
                 .then(res => {
                     let getData = res.data.testInfo[0]
@@ -78,7 +78,6 @@ const HCVViralview = (props) => {
         } else {
             axios.get(`/get-single-patient/${params.UHID}`)
                 .then(res => {
-                    console.log(res.data)
                     let updateData = hcv
 
                     if (res.data) {
@@ -88,16 +87,15 @@ const HCVViralview = (props) => {
                         updatedData.dateOfBirth = res.data[0].basic.date
                         updatedData.villCity = res.data[0].contact.village
                         updatedData.tele = res.data[0].contact.phoneNumber
+
                         updatedData.result1.sex = res.data[0].basic.gender
                         updatedData.result2.sex = res.data[0].basic.gender
                         updatedData.result1.clientName = res.data[0].basic.name
-                        updatedData.result2.clientName= res.data[0].basic.name
-                        updatedData.result1.clientNationalID =  res.data[0].basic.nationalIdNumber
-                        updatedData.result2.clientNationalID =  res.data[0].basic.nationalIdNumber
-
+                        updatedData.result2.clientName = res.data[0].basic.name
+                        updatedData.result1.clientNationalID = res.data[0].basic.nationalIdNumber
+                        updatedData.result2.clientNationalID = res.data[0].basic.nationalIdNumber
                         setHCV(updatedData)
                     }
-
                 })
                 .catch(err => {
                     console.log(err)
@@ -106,54 +104,48 @@ const HCVViralview = (props) => {
     }, [])
 
 
-    const initialChange = (e) => {
-    }
     const handleChange = (e) => {
+        if (e.target.name === 'goodCondition' || e.target.name === 'inadequateCondition') {
 
-
+            console.log(e.target.value)
+            const data = { ...hcv }
+            data[e.target.name] = true
+            setHCV(data)
+        } else {
+            console.log(e.target.value)
+            const data = { ...hcv }
+            data[e.target.name] = e.target.value
+            setHCV(data)
+        }
     }
     const handleResult = (e) => {
+        const data = { ...hcv }
+
+        const { name, value } = e.currentTarget
+        data.result1[name] = value
+        console.log(hcv)
+        setHCV(data)
     }
     const handleResult1 = (e) => {
+        const data = { ...hcv }
+        const { name, value } = e.currentTarget
+        data.result2[name] = value
+        console.log(hcv)
+        setHCV(data)
+
     }
-    const retrieve = () => {
-    }
-    
+
     const submitter = (e) => {
         e.preventDefault()
+        console.log(hcv)
         let decoded = decoder(window.localStorage.getItem('userStore'))
         let params = queryString.parse(window.location.search)
-        let testInfo = {
-            priority: hcv.priority,
-            department: hcv.department,
-            firstName: hcv.firstName,
-            nationalIdNumber: hcv.nationalIdNumber,
-            dateOfBirth: hcv.dateOfBirth,
-            healthFacility: hcv.healthFacility,
-            zoba: hcv.healthFacility,
-            subZoba: hcv.subZoba,
-            villCity: hcv.villCity,
-            requestedBy: hcv.requestedBy,
-            tele: hcv.tele,
-            specimenDate: hcv.specimenDate,
-            NHLDate: hcv.NHLDate,
-            goodCondition: hcv.goodCondition,
-            inadequateCondition: hcv.inadequateCondition,
-            result1: hcv.result1,
-            result2: hcv.result2,
-            reportBy: hcv.reportBy,
-            referralDate: hcv.referralDate,
-            reportSig: hcv.reportSig,
-            approveBy: hcv.approveBy,
-            approveDate: hcv.approveDate,
-            approveSig: hcv.approveSig
-        }
 
 
 
         if (params.for === 'submit') {
-            axios.post(`/submitResult`, { id: params.id, testInfo: testInfo })
-            
+            axios.post(`/submitResult`, { id: params.id, testInfo: hcv })
+
             .then((res) => {
                 console.log("Successful")
                 window.location.href = '/LabManagement'
@@ -166,7 +158,7 @@ const HCVViralview = (props) => {
                 type: params.test,
                 PatientUHID: params.UHID,
                 requester: decoded.email,
-                testInfo: testInfo
+                testInfo: hcv
             })
                 .then((res) => {
                     console.log("Successful")
@@ -177,35 +169,34 @@ const HCVViralview = (props) => {
                 })
         }
     }
-    
+
     const DR = () => {
         if (params.for === "view") {
             return (
                 <span></span>
             )
-        } else if(params.for==="submit") {
+        } else if (params.for === "submit") {
             return (
-                <Lsidebar/>
+                <Lsidebar />
             )
-        }else{
-            return(
-                <Dsidebar/>
+        } else {
+            return (
+                <Dsidebar />
             )
         }
     }
 
     return (
         <div>
-            <DR/>
+            <DR />
             <div style={{ marginLeft: '220px' }}>
                 <Pdf targetRef={ref} filename="code-example.pdf" >
                     {({ toPdf }) => <button onClick={toPdf}>Generate Pdf</button>}
                 </Pdf>
                 <div ref={ref} style={{ padding: '20px', width: '210mm', height: '297mm' }}>
-                    <HCVViralComp hcv={hcv} handleChange={handleChange}
+                    <HCVViralComp mode={params.for} hcv={hcv} handleChange={handleChange}
                         handleResult={handleResult} handleResult1={handleResult1}
-                        submitter={submitter} initialChange={initialChange}
-                        retrieve={retrieve}
+                        submitter={submitter}
                         purpose="update" />
                 </div>
             </div>

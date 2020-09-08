@@ -8,6 +8,8 @@ import ChemComp from '../../Doctor/NHLForms/ChemComp'
 import ChemTable from '../../Doctor/NHLForms/ChemTable'
 import Dsidebar from '../../Doctor/Dsidebar'
 import Pdf from "react-to-pdf";
+import queryString from 'query-string'
+import decoder from 'jwt-decode'
 
 const ref = React.createRef();
 const useStyles = makeStyles((theme) => ({
@@ -19,6 +21,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 const ChemShow = (props) => {
+  const [decoded, setDecoded] = useState({})
+  const [params, setParams] = useState({})
 
   const [chemistry, setChemistry] = useState({
     PatientUHID: "", patientName: "", nationalIdNumber: "", dateOfBirth: null, sex: "", patientZopaSub: "", hospital: "", ward: "",
@@ -52,9 +56,46 @@ const ChemShow = (props) => {
     }, test: "Chemistry"
   })
 
+
+
+
   useEffect(() => {
-    console.log(chemistry)
-  }, [chemistry])
+    let params = queryString.parse(window.location.search)
+    setDecoded(decoder(window.localStorage.getItem('userStore')))
+    setParams(params)
+    if (params.for === 'submit' || params.for === "view") {
+      axios.get(`/findTest/${params.id}`)
+        .then(res => {
+          let getData = res.data.testInfo[0]
+          setChemistry(getData)
+        })
+    } else {
+      axios.get(`/get-single-patient/${params.UHID}`)
+        .then(res => {
+          if (res.data) {
+            let updatedData = chemistry
+            updatedData.firstName = res.data[0].basic.name
+            updatedData.nationalIdNumber = res.data[0].basic.nationalIdNumber
+            updatedData.dateOfBirth = res.data[0].basic.date
+            updatedData.villCity = res.data[0].contact.village
+            updatedData.tele = res.data[0].contact.phoneNumber
+
+            setChemistry(updatedData)
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  }, [])
+
+
+
+  const setDate = (date) => {
+    const data = { ...chemistry }
+
+
+  }
   const setDates = (date) => {
     const data = { ...chemistry }
 
@@ -63,53 +104,121 @@ const ChemShow = (props) => {
     setChemistry(data)
 
   }
-  useEffect(() => {
-    axios.get(`http://localhost:4001/api/labRequest/chemistry`)
-      .then(res => {
-
-        setChemistry(res.data)
-        console.log(chemistry)
-      })
-      .catch(error => console.log(error))
-  }, [])
-  const setDate = (date) => {
-    const data = { ...chemistry }
-
-
-  }
   const initialChange = (e) => {
-    e.preventDefault()
+    const data = { ...chemistry }
+    data[e.target.name] = e.target.value
+    setChemistry(data)
 
   }
   const initialChanged = (e) => {
-    e.preventDefault()
-
+    const data = { ...chemistry }
+    data[e.target.name] = true
+    setChemistry(data)
   }
   const handleInitialChange = (e) => {
-
+    const data = { ...chemistry }
+    data.chemistryData[e.currentTarget.name] = e.currentTarget.checked
+    setChemistry(data)
   }
   const handleHaemotologyChange = (e) => {
-
+    const data = { ...chemistry }
+    data.HaemotologyData[e.currentTarget.name] = e.currentTarget.checked
+    setChemistry(data)
   }
   const handleImmunoHaematol = (e) => {
-
+    const data = { ...chemistry }
+    data.ImmunoHaematol[e.currentTarget.name] = e.currentTarget.checked
+    setChemistry(data)
   }
   const handleMicroBiology = (e) => {
-
+    const data = { ...chemistry }
+    data.MicroBiology[e.currentTarget.name] = e.currentTarget.checked
+    setChemistry(data)
   }
   const handleImmunoserology = (e) => {
-
+    const data = { ...chemistry }
+    data.Immunoserology[e.currentTarget.name] = e.currentTarget.checked
+    setChemistry(data)
   }
   const handleTherapeuticDrugs = (e) => {
-
+    const data = { ...chemistry }
+    data.TherapeuticDrugs[e.currentTarget.name] = e.currentTarget.checked
+    setChemistry(data)
   }
-
   const retrieve = () => {
 
   }
+
+
+  const handleSubmit = (e) => {
+    let decoded = decoder(window.localStorage.getItem('userStore'))
+    let params = queryString.parse(window.location.search)
+
+
+
+    if (params.for === 'submit') {
+      axios.post(`/submitResult`, { id: params.id, testInfo: chemistry })
+
+        .then((res) => {
+          console.log("Successful")
+          window.location.href = '/LabManagement'
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    } else {
+      axios.post("/make-request", {
+        type: params.test,
+        PatientUHID: params.UHID,
+        requester: decoded.email,
+        testInfo: chemistry
+      })
+        .then((res) => {
+          console.log("Successful")
+          window.location.href = '/make-request'
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+  }
+
+  const DR = () => {
+    if (params.for === "view") {
+      return (
+        <span></span>
+      )
+    } else if (params.for === "submit") {
+      return (
+        <Lsidebar />
+      )
+    } else {
+      return (
+        <Dsidebar />
+      )
+    }
+  }
+
+
+  const BT = () => {
+    if (params.for === "view") {
+      return (
+        <button class="btn btn-primary" onClick={() => { window.history.back() }}>Go Back</button>
+      )
+    } else {
+      return (
+        <div>
+          <button class="btn btn-primary" style={{ float: 'right', margin: '10px' }} onClick={() => { window.history.back() }}> Cancel</button>
+          <button class="btn btn-primary" onClick={() => { handleSubmit() }} style={{ float: 'right', margin: '10px' }}> Submit</button>
+        </div>
+      )
+    }
+  }
+
+
   return (
     <div>
-      <Dsidebar />
+      <DR />
       <div style={{ marginLeft: '220px' }}>
         <Pdf targetRef={ref} filename="code-example.pdf" options={options} x={.5} y={.5}>
           {({ toPdf }) => <button onClick={toPdf}>Generate Pdf</button>}
@@ -131,7 +240,7 @@ const ChemShow = (props) => {
             handleImmunoserology={handleImmunoserology}
             handleHaemotologyChange={handleHaemotologyChange}
           />
-
+          <BT />
         </div>
       </div>
     </div>

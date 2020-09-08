@@ -25,14 +25,14 @@ const ChemComp = ({setDate,chemistry,retrieve,initialChanged,initialChange,setDa
         <div style={{padding:'20px'}}>
         <center>  <Typography variant="h4" style={{marginRight:'15px'}}><u>Chemistry FORM</u></Typography></center>
        <Grid container spacing={3} style={{marginTop:'20px'}}>
-      <Grid item xs={12}> <div class="form-row" style={{paddingTop:'20px'}}>
+      {/* <Grid item xs={12}> <div class="form-row" style={{paddingTop:'20px'}}>
      <div class="form-group col-md-4">
      
      <input type="text" onChange={initialChange} class="form-control"  name="PatientUHID"  required id="inputEmail4" placeholder="UHID"/>
      </div>
      <input class="btn btn-primary" type="button"  value="Get Data"  onClick={retrieve} />  
      </div>
-     </Grid>
+     </Grid> */}
        <br></br>
   
   

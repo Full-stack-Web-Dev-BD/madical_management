@@ -65,21 +65,29 @@ const FormReceive = (props) => {
     else if (data.type === "Culture") {
       props.history.push(`/LCulture?for=submit&id=${data._id}`)
     }
-    else if (data.type === "HCVViral") {
-      console.log(data.RequestID)
-      props.history.push('/HCVViralform')
+    else if (data.type === "HCVViralvew") {
+      props.history.push(`/LHCVViralvew?for=submit&id=${data._id}`)
     }
-    else if (data.type === "HBLViral") {
-      props.history.push('/HBLViralform')
+    else if (data.type === "Tbreport") {
+      props.history.push(`/LTbreport?for=submit&id=${data._id}`)
     }
-    else if (data.type === "HIVViral") {
-      props.history.push('/HIVViralform')
+    else if (data.type === "HBLViralview") {
+      props.history.push(`/LHBLViralview?for=submit&id=${data._id}`)
     }
-    else if (data.type === "culture and sensitivity") {
-      props.history.push('/Culture')
+    else if (data.type === "HCVViralform") {
+      props.history.push(`/LHCVViralform?for=submit&id=${data._id}`)
     }
+    else if (data.type === "Chemlab") {
+      props.history.push(`/LChemlab?for=submit&id=${data._id}`)
+    }
+    else if (data.type === "Chemshow") {
+      props.history.push(`/LChemshow?for=submit&id=${data._id}`)
+    }
+    
   }
+  
 
+  
   return (
     <div>
       <TableContainer component={Paper}>
@@ -90,7 +98,7 @@ const FormReceive = (props) => {
               <StyledTableCell align="center"><b>UHID</b></StyledTableCell>
               <StyledTableCell align="center"><b>Patient Name</b> </StyledTableCell>
               <StyledTableCell align="center"><b>Test Type</b></StyledTableCell>
-              <StyledTableCell align="center"><b>Check</b></StyledTableCell>
+              <StyledTableCell align="center"><b>Action</b></StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -100,7 +108,7 @@ const FormReceive = (props) => {
                 <StyledTableCell align="center">  {pat.patient}</StyledTableCell>
                 <StyledTableCell align="center">  {pat.testInfo[0].firstName}</StyledTableCell>
                 <StyledTableCell align="center">  {pat.type}</StyledTableCell>
-                <StyledTableCell align="center"> <button class="btn btn-primary" onClick={() => Checkit(pat)}>  Check </button></StyledTableCell>
+                <StyledTableCell align="center"> <button class="btn btn-primary" onClick={() => Checkit(pat)}>  Submit Result </button></StyledTableCell>
               </StyledTableRow>
             ))
             }

@@ -132,15 +132,13 @@ export default function HIVViral(props) {
     const handleChange = (e) => {
         const data = { ...hcv }
         const { name, type, value } = e.currentTarget
-        console.log(e.currentTarget.type)
-        console.log(e.currentTarget)
+        
         if (type == 'checkbox') {
             data[name] = e.currentTarget.checked
         }
         else {
             data[name] = value
         }
-        console.log(hcv)
         setHCV(data)
     }
     const handleResult = (e) => {

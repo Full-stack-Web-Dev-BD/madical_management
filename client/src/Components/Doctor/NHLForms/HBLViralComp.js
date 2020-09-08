@@ -33,7 +33,23 @@ const useStyles = makeStyles({
         marginBottom: 12,
     },
 });
-const HBLViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, handleResult1, initialChange, retrieve }) => {
+const HBLViralComp = ({ mode, hcv, handleChange, submitter, handleResult, handleResult1, initialChange, retrieve }) => {
+    
+    
+    const BT=()=>{
+        if(mode==="view"){
+            return(
+                <button class="btn btn-primary" onClick={()=>{window.history.back()}}>Go Back</button>
+                )
+        }else {
+            return(
+            <button class="btn btn-primary" onClick={()=>{submitter()}}>Submit</button>
+            )
+        }
+    }
+    
+    
+    
     const classes = useStyles();
     return (
         <div>
@@ -74,13 +90,13 @@ const HBLViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                                         <tr>
                                             <div style={{ flexGrow: 1 }}>
                                                 <Grid container spacing={1}>
-                                                    <Grid item xs={3}>
+                                                    {/* <Grid item xs={3}>
                                                         <div class="form-group col-md-4">
 
                                                             <input type="text" onChange={initialChange} class="form-control" name="PatientUHID" required id="inputEmail4" placeholder="UHID" />
                                                         </div>
                                                         <input class="btn btn-primary" type="button" value="Get Data" onClick={retrieve} />
-                                                    </Grid>
+                                                    </Grid> */}
                                                     <Grid item xs={6} >
                                                         <b> Patient Name:</b>
 
@@ -221,7 +237,6 @@ const HBLViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
 
                                                     <Grid item xs={4}>
                                                         <b>  Date of Specimen collection : </b>
-                                                        {purpose == "update" ? <input type="text" value={hcv.specimenDate} /> :
                                                             <TextField
                                                                 id="date"
                                                                 name="specimenDate"
@@ -233,11 +248,10 @@ const HBLViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                                                                 InputLabelProps={{
                                                                     shrink: true,
                                                                 }}
-                                                            />}
+                                                            />
                                                     </Grid>
                                                     <Grid item xs={4}>
                                                         <b>   Date Sent to NHL : </b>
-                                                        {purpose == "update" ? <input type="text" value={hcv.NHLDate} /> :
                                                             <TextField
                                                                 id="date"
                                                                 name="NHLDate"
@@ -248,7 +262,7 @@ const HBLViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                                                                 InputLabelProps={{
                                                                     shrink: true,
                                                                 }}
-                                                            />}
+                                                            />
                                                     </Grid>
                                                 </Grid>
                                             </div>
@@ -555,7 +569,6 @@ const HBLViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                                 </Grid>
                                 <Grid item xs={3}>
                                     <b>   Date : </b>
-                                    {purpose == "update" ? <input type="text" value={hcv.referralDate} /> :
                                         <TextField
                                             id="date"
                                             name="referralDate"
@@ -566,7 +579,7 @@ const HBLViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
-                                        />}
+                                        />
                                 </Grid>
                                 <Grid item xs={3}>
                                     <b>  Sig : </b>
@@ -602,7 +615,6 @@ const HBLViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                                 </Grid>
                                 <Grid item xs={3}>
                                     <b>   Date : </b>
-                                    {purpose == "update" ? <input type="text" value={hcv.approveDate} /> :
                                         <TextField
                                             id="date"
                                             name="approveDate"
@@ -613,7 +625,7 @@ const HBLViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
-                                        />}
+                                        />
                                 </Grid>
                                 <Grid item xs={3}>
                                     <b>  Sig : </b>
@@ -631,7 +643,7 @@ const HBLViralComp = ({ purpose, hcv, handleChange, submitter, handleResult, han
                                 </Grid>
 
                             </Grid>
-                            <button class="btn btn-primary" onClick={submitter}>Submit</button>
+                            <BT/>
                         </div>
 
                     </Typography >

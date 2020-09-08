@@ -34,7 +34,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Page2({mode,handleChange,handleChanges,data,submitter,retrieve,stat}) {
+export default function Page2({mode,handleChange,handleDst,data,submitter,stat}) {
     const classes = useStyles();
     const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
 
@@ -393,7 +393,7 @@ export default function Page2({mode,handleChange,handleChanges,data,submitter,re
                                                      <TextField
                                     id="address"
                                     type="text"
-                                    onChange={handleChanges}
+                                    onChange={handleDst}
                                     name="stremptomycin"
                                     value={data.DST['stremptomycin']}
                                     className={classes.textField}
@@ -404,7 +404,7 @@ export default function Page2({mode,handleChange,handleChanges,data,submitter,re
                                                     <td className={classes.brdr}>
                                                     <TextField
                                     id="address"
-                                    onChange={handleChanges}
+                                    onChange={handleDst}
                                     type="text"
                                     name="isoniazed"
                                     value={data.DST['isoniazed']}
@@ -418,7 +418,7 @@ export default function Page2({mode,handleChange,handleChanges,data,submitter,re
                                                     <TextField
                                     id="address"
                                     type="text"
-                                    onChange={handleChanges}
+                                    onChange={handleDst}
                                     name="rifampcin"
                                     value={data.DST['rifampcin']}
                                     className={classes.textField}
@@ -431,7 +431,7 @@ export default function Page2({mode,handleChange,handleChanges,data,submitter,re
                                                     <TextField
                                     id="address"
                                     type="text"
-                                    onChange={handleChanges}
+                                    onChange={handleDst}
                                     value={data.DST['rthambutol']}
                                     className={classes.textField}
                                     name="rthambutol"
@@ -444,7 +444,7 @@ export default function Page2({mode,handleChange,handleChanges,data,submitter,re
                                                     <TextField
                                     id="address"
                                     type="text"
-                                    onChange={handleChanges}
+                                    onChange={handleDst}
                                     name="pyrazinamide"
                                     value={data.DST['pyrazinamide']}
                                     className={classes.textField}
@@ -466,7 +466,7 @@ export default function Page2({mode,handleChange,handleChanges,data,submitter,re
                                                     <TextField
                                     id="address"
                                     type="text"
-                                    onChange={handleChanges}
+                                    onChange={handleDst}
                                     value={data.DST['amikacin']}
                                     name="amikacin"
                                 
@@ -481,7 +481,7 @@ export default function Page2({mode,handleChange,handleChanges,data,submitter,re
                                     id="address"
                                     type="text"
                                     value={data.DST['capreomycin']}
-                                    onChange={handleChanges}
+                                    onChange={handleDst}
                                     name="capreomycin"
                                    
                                     className={classes.textField}
@@ -494,7 +494,7 @@ export default function Page2({mode,handleChange,handleChanges,data,submitter,re
                                                     <TextField
                                     id="address"
                                     type="text"
-                                    onChange={handleChanges}
+                                    onChange={handleDst}
                                     value={data.DST['kanamycin']}
                                     name="kanamycin"
                                     className={classes.textField}
@@ -506,7 +506,7 @@ export default function Page2({mode,handleChange,handleChanges,data,submitter,re
                                                     <td className={classes.brdr}>
                                                     <TextField
                                     id="address"
-                                    onChange={handleChanges}
+                                    onChange={handleDst}
                                     type="text"
                                     name="levloxacin"
                                     value={data.DST['levloxacin']}
@@ -522,7 +522,7 @@ export default function Page2({mode,handleChange,handleChanges,data,submitter,re
                                     id="address"
                                     type="text"
                                     value={data.DST['ofloxacin']}
-                                    onChange={handleChanges}
+                                    onChange={handleDst}
                                     name="ofloxacin"
                                     className={classes.textField}
                                 />
