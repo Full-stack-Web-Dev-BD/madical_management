@@ -2,25 +2,25 @@ import React, { useEffect, useState } from 'react';
 import Sidebar from './sidebar'
 import Receptionist from '../Image/Receptionist.png'
 import Appoint from '../Image/Appoint.png'
-import Doctor from '../Image/Doctor.png'
-import User from '../Image/user.png'
-import jwt_decode from 'jwt-decode';
-import { BrowserRouter, Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './css/Rdashboard.css'
-import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography'
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import TouchAppIcon from '@material-ui/icons/TouchApp';
 import AccessibleIcon from '@material-ui/icons/Accessible';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import CardMedia from '@material-ui/core/CardMedia';
+import Doctor from '../Image/Doctor.png'
+import User from '../Image/user.png'
+import jwt_decode from 'jwt-decode';
 
+import axios from 'axios'
 
 import { useRecoilState } from 'recoil'
 import { doctorsState, allPatientState, allAppoinmentState } from '../util/recoilState'

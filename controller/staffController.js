@@ -2,6 +2,7 @@ const patientModel = require('../model/patientModel')
 const appointModel = require('../model/appointModel')
 const invoiceModel = require('../model/invoiceModel')
 const testRequestModel = require('../model/testRequestModel')
+
 module.exports = {
     addPatient(req, res) {
 
@@ -129,6 +130,8 @@ module.exports = {
         let uhid = parseInt(req.body.PatientUHID)
         patientModel.findOne({ UHID: uhid })
             .then(patient => {
+                if(patient){
+                    console.log('patient founded',patient.request)
                 patient.request = req.body.requester
                 patient.save()
                     .then(doc => {
@@ -154,6 +157,10 @@ module.exports = {
                         console.log(err)
                         res.status(500).json({ massage: "server error " })
                     })
+                }else{
+                    console.log('patient not  founded')
+                    res.status(500).json({ massage: "server error " })
+                }
             })
             .catch(err => {
                 console.log(err)

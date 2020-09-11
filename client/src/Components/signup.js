@@ -45,7 +45,8 @@ export default function Signup(props) {
   const [account, setAccount] = useState({
     name: "",
     email: "",
-    password: ""
+    password: "",
+    type:"Admin"
   })
   const updateData = (e) => {
     e.preventDefault();
@@ -59,7 +60,8 @@ export default function Signup(props) {
       .post("/admin-register", {
         name: account.name,
         email: account.email,
-        password: account.password
+        password: account.password,
+        type:account.type
       })
       .then(res => {
         props.history.push('/');

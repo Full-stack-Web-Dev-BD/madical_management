@@ -101,7 +101,7 @@ const App = () => {
         <ReceptionistRoute path="/make-request" component={RequestForPatient} />
         <ReceptionistRoute path="/view-result" component={SeeResult} />
 
-
+ 
 
         <ReceptionistRoute path="/HIVViral" component={HIVViral} />
         <ReceptionistRoute path="/LabTbreport" component={TBreport} />
@@ -113,16 +113,12 @@ const App = () => {
         <ReceptionistRoute path="/Chemlab" component={ChemLay} />
         <ReceptionistRoute path="/Hivvirals" component={HivVirals} />
         <ReceptionistRoute path="/Chemshow" component={ChemShow} />
-
-
-
-
-        <ReceptionistRoute path="/HBLViralform" component={HBLform} />
         <ReceptionistRoute path="/HIVViralform" component={HIVForm} />
         <ReceptionistRoute path="/HivDna" component={HIVDNA} />
-
+        {/*  hiv dna have issue */}
         <ReceptionistRoute path="/HBVViral" component={HBVViral} />
-        <ReceptionistRoute path="/Viewdata" component={Viewdata} />
+
+
         <ReceptionistRoute path="/Syphlis" component={Syphlis} />
 
 
@@ -131,6 +127,8 @@ const App = () => {
         <ReceptionistRoute path="/form14" component={Form14} />
         <ReceptionistRoute path="/form15" component={Form15} />
         <ReceptionistRoute path="/ResultView" component={ResultView} />
+        <ReceptionistRoute path="/Viewdata" component={Viewdata} />
+        <ReceptionistRoute path="/HBLViralform" component={HBLform} />
 
 
 
@@ -147,6 +145,9 @@ const App = () => {
         <Route path="/view-Chemlab" component={ChemLay} />
         <Route path="/view-Hivvirals" component={HivVirals} />
         <Route path="/view-Chemshow" component={ChemShow} />
+        <Route path="/view-HIVViralform" component={HIVForm} />
+        <Route path="/view-HivDna" component={HIVDNA} />
+        <Route path="/view-HBVViral" component={HBVViral} />
 
 
 
@@ -190,6 +191,9 @@ const App = () => {
         <LabTechRouter path="/LChemlab" component={ChemLay} />
         <LabTechRouter path="/LHivvirals" component={HivVirals} />
         <LabTechRouter path="/LChemshow" component={ChemShow} />
+        <LabTechRouter path="/LHIVViralform" component={HIVForm} />
+        <LabTechRouter path="/LHivDna" component={HIVDNA} />
+        <LabTechRouter path="/LHBVViral" component={HBVViral} />
 
       </Switch>
     </BrowserRouter>

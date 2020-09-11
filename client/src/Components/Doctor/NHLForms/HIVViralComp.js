@@ -34,7 +34,7 @@ const useStyles = makeStyles({
         marginBottom: 12,
     },
 });
-const HIVViralComp = ({mode, purpose, hcv, handleChange, submitter, handleResult, handleResult1, initialChange, retrieve }) => {
+const HIVViralComp = ({mode, hcv, handleChange, submitter, handleResult, handleResult1, initialChange, retrieve }) => {
 
     const [params, setParams] = useState({})
     const [decoded, setDecoded] = useState({})
@@ -229,7 +229,6 @@ const HIVViralComp = ({mode, purpose, hcv, handleChange, submitter, handleResult
 
                                                 <Grid item xs={4}>
                                                     <b>  Date of Specimen collection : </b>
-                                                    {purpose == "update" ? <input type="text" value={hcv.specimenDate} /> :
                                                         <TextField
                                                             id="date"
                                                             name="specimenDate"
@@ -241,11 +240,10 @@ const HIVViralComp = ({mode, purpose, hcv, handleChange, submitter, handleResult
                                                             InputLabelProps={{
                                                                 shrink: true,
                                                             }}
-                                                        />}
+                                                        />
                                                 </Grid>
                                                 <Grid item xs={4}>
                                                     <b>   Date Sent to NHL : </b>
-                                                    {purpose == "update" ? <input type="text" value={hcv.NHLDate} /> :
                                                         <TextField
                                                             id="date"
                                                             name="NHLDate"
@@ -256,7 +254,7 @@ const HIVViralComp = ({mode, purpose, hcv, handleChange, submitter, handleResult
                                                             InputLabelProps={{
                                                                 shrink: true,
                                                             }}
-                                                        />}
+                                                        />
                                                 </Grid>
                                             </Grid>
                                         </div>
@@ -561,7 +559,6 @@ const HIVViralComp = ({mode, purpose, hcv, handleChange, submitter, handleResult
                             </Grid>
                             <Grid item xs={3}>
                                 <b>   Date : </b>
-                                {purpose == "update" ? <input type="text" value={hcv.referralDate} /> :
                                     <TextField
                                         id="date"
                                         name="referralDate"
@@ -572,7 +569,7 @@ const HIVViralComp = ({mode, purpose, hcv, handleChange, submitter, handleResult
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
-                                    />}
+                                    />
                             </Grid>
                             <Grid item xs={3}>
                                 <b>  Sig : </b>
@@ -608,7 +605,6 @@ const HIVViralComp = ({mode, purpose, hcv, handleChange, submitter, handleResult
                             </Grid>
                             <Grid item xs={3}>
                                 <b>   Date : </b>
-                                {purpose == "update" ? <input type="text" value={hcv.approveDate} /> :
                                     <TextField
                                         id="date"
                                         name="approveDate"
@@ -619,7 +615,7 @@ const HIVViralComp = ({mode, purpose, hcv, handleChange, submitter, handleResult
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
-                                    />}
+                                    />
                             </Grid>
                             <Grid item xs={3}>
                                 <b>  Sig : </b>

@@ -81,7 +81,6 @@ module.exports = {
                         if (!success) {
                             return res.status(400).json({ massage: "Password did not match !" })
                         }
-                        console.log('password matched')
                         let token = jwt.sign(
                             {
                                 name: user.name,

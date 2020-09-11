@@ -83,6 +83,12 @@ const FormReceive = (props) => {
     else if (data.type === "Chemshow") {
       props.history.push(`/view-Chemshow?for=view&mode=view&id=${data._id}`)
     }
+    else if (data.type === "HIVViralform") {
+      props.history.push(`/view-HIVViralform?for=view&mode=view&id=${data._id}`)
+    }
+    else if (data.type === "HBVViral") {
+      props.history.push(`/view-HBVViral?for=view&mode=view&id=${data._id}`)
+    }
   }
   
   

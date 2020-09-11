@@ -68,7 +68,6 @@ const Adashboard = (props) => {
     axios.get('/get-patients')
       .then(res => {
         setAllPatientState(res.data)
-
       })
       .catch(err => {
         console.log(err)

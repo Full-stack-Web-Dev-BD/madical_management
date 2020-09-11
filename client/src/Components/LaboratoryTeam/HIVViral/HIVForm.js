@@ -3,7 +3,16 @@ import HIVViralComp from '../../Doctor/NHLForms/HIVViralComp'
 import axios from 'axios'
 import sidebar from '../../sidebar';
 import Dsidebar from '../../Doctor/Dsidebar';
+import queryString from 'query-string'
+import decoder from 'jwt-decode'
+import Lsidebar from '../Lsidebar';
+
+
+
 const HBLform = (props) => {
+    const [params, setParams] = useState({})
+    const [decoded, setDecoded] = useState({})
+
     const [hcv, setHCV] = useState({
         PatientUHID: "",
         priority: "",
@@ -47,24 +56,68 @@ const HBLform = (props) => {
         approveDate: "",
         approveSig: ""
     })
-    useEffect(() => {
-        // console.log(props.match)
-        // axios.get(`http://localhost:4001/api/labRequest/hivViral`)
-        //     .then(res => {
-        //         console.log(res.data)
-        //         setHCV(res.data)
+    
 
-        //     })
-        //     .catch(error => console.log(error))
-    }, [])
+    
+  useEffect(() => {
+    let params = queryString.parse(window.location.search)
+    setDecoded(decoder(window.localStorage.getItem('userStore')))
+    setParams(params)
+    if (params.for === 'submit' || params.for === "view") {
+        axios.get(`/findTest/${params.id}`)
+            .then(res => {
+                let getData = res.data.testInfo[0]
+                console.log(getData)
+                setHCV(getData)
+                console.log('test ', res.data.testInfo[0])
+            })
+    } else {
+        axios.get(`/get-single-patient/${params.UHID}`)
+            .then(res => {
+                let updateData = hcv
+
+                if (res.data) {
+                    let updatedData = hcv
+                    updatedData.firstName = res.data[0].basic.name
+                    updatedData.nationalIdNumber = res.data[0].basic.nationalIdNumber
+                    updatedData.dateOfBirth = res.data[0].basic.date
+                    updatedData.villCity = res.data[0].contact.village
+                    updatedData.tele = res.data[0].contact.phoneNumber
+
+                    updatedData.result1.sex = res.data[0].basic.gender
+                    updatedData.result2.sex = res.data[0].basic.gender
+                    updatedData.result1.clientName = res.data[0].basic.name
+                    updatedData.result2.clientName = res.data[0].basic.name
+                    updatedData.result1.clientNationalID = res.data[0].basic.nationalIdNumber
+                    updatedData.result2.clientNationalID = res.data[0].basic.nationalIdNumber
+                    setHCV(updatedData)
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+}, [])
+
+
     const initialChange = (e) => {
         const copyData = { ...hcv }
         copyData['PatientUHID'] = e.currentTarget.value
         setHCV(copyData)
     }
     const handleChange = (e) => {
-
-
+        if (e.target.name === 'goodCondition' || e.target.name === 'inadequateCondition') {
+    
+            console.log(e.target.value)
+            const data = { ...hcv }
+            data[e.target.name] = true
+            setHCV(data)
+        } else {
+            console.log(e.target.value)
+            const data = { ...hcv }
+            data[e.target.name] = e.target.value
+            setHCV(data)
+        }
     }
     const handleResult = (e) => {
         const data = { ...hcv }
@@ -85,21 +138,60 @@ const HBLform = (props) => {
     const retrieve = () => {
     }
     const submitter = (e) => {
-        e.preventDefault()
-        axios.put(`http://localhost:4001/api/labRequest/hivViral`, {
-            result1: hcv.result1,
-            result2: hcv.result2,
-        })
-            .then(res => {
-                props.history.push("/FormView")
-            });
+        let decoded = decoder(window.localStorage.getItem('userStore'))
+        let params = queryString.parse(window.location.search)
+    
+    
+    
+        if (params.for === 'submit') {
+            axios.post(`/submitResult`, { id: params.id, testInfo: hcv })
+    
+            .then((res) => {
+                console.log("Successful")
+                window.location.href = '/LabManagement'
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        } else {
+            axios.post("/make-request", {
+                type: params.test,
+                PatientUHID: params.UHID,
+                requester: decoded.email,
+                testInfo: hcv
+            })
+                .then((res) => {
+                    console.log("Successful")
+                    window.location.href = '/make-request'
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
     }
+    
+    const DR = () => {
+        if (params.for === "view") {
+            return (
+                <span></span>
+            )
+        } else if (params.for === "submit") {
+            return (
+                <Lsidebar />
+            )
+        } else {
+            return (
+                <Dsidebar />
+            )
+        }
+    }
+    
     return (
         <div>
-            <Dsidebar />
+            <DR/>
             <div style={{ marginLeft: '220px' }}>
                 <div style={{ padding: '20px' }}>
-                    <HIVViralComp hcv={hcv} handleChange={handleChange}
+                    <HIVViralComp mode={params.for} hcv={hcv} handleChange={handleChange}
                         handleResult={handleResult} handleResult1={handleResult1}
                         submitter={submitter} initialChange={initialChange}
                         retrieve={retrieve}

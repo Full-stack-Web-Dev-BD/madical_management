@@ -160,11 +160,11 @@ export default function PatientRequestModal({ props, s }) {
                                 <option className="ml-5" value="Chemlab">Chemlab</option>
                                 <option className="ml-5" value="Hivvirals">Hivvirals</option>
                                 <option className="ml-5" value="Chemshow">Chemshow</option>
-                                <option className="ml-5" value="Viewdata">Viewdata</option>
-                                <option className="ml-5" value="HBLViralform">HBLViralform</option>
+                                {/* <option className="ml-5" value="Viewdata">Viewdata</option> */}
+                                {/* <option className="ml-5" value="HBLViralform">HBLViralform</option> */}
                                 <option className="ml-5" value="HIVViralform">HIVViralform</option>
-                                <option className="ml-5" value="FormView">FormView</option>
-                                <option className="ml-5" value="ResultView">ResultView</option>
+                                {/* <option className="ml-5" value="FormView">FormView</option>
+                                <option className="ml-5" value="ResultView">ResultView</option> */}
                                 <option className="ml-5" value="HivDna">HivDna</option>
                                 <option className="ml-5" value="HBVViral">HBVViral</option>
                                 <option className="ml-5" value="Syphlis">Syphlis</option>

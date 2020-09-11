@@ -87,6 +87,7 @@ export default function Login(props) {
       })
       .then(res => {
         const decoded = jwt_decode(res.data.token);
+        console.log(decoded)
         localStorage.setItem('userStore', res.data.token);
 
         if (decoded.type == "Admin" || decoded.type == 'admin') {
